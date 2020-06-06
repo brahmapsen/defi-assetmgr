@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { useStore } from "../../store/store";
-import { useHistory } from "react-router-dom";
 import Web3 from "web3"; // uses latest 1.x.x version
 import Fortmatic from "fortmatic";
+import { useBalances } from "./Balances";
+import { useMakerDAO } from "./MakerDAO";
 
 export function useInitWeb3() {
   const { state, dispatch } = useStore();
   const [wallet, setWallet] = useState(null);
-  let history = useHistory();
+
+  useBalances();
+  useMakerDAO();
+
   let modals = state.modals;
 
   useEffect(() => {
@@ -25,9 +29,8 @@ export function useInitWeb3() {
             web3 = new Web3(window.ethereum);
             try {
               // Request account access if needed
-              await window.ethereum.enable().then((wallets) => {
+              await window.ethereum.enable().then(wallets => {
                 account = wallets[0];
-                console.log("Metamask Account", account);
               });
             } catch (error) {
               // User denied account access...
@@ -58,6 +61,7 @@ export function useInitWeb3() {
       }
       dispatch({ type: "setAccount", account });
       dispatch({ type: "setWeb3", web3 });
+
       modals.connectionPending = false;
       dispatch({ type: "setModals", modals });
     }
@@ -67,6 +71,6 @@ export function useInitWeb3() {
   }, [wallet]);
 
   return {
-    setWallet,
+    setWallet
   };
 }

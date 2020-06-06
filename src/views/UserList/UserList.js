@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/styles';
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/styles";
 
-import { UsersToolbar, UsersTable } from './components';
-import mockData from './data';
+import { UsersToolbar, UsersTable } from "./components";
+import mockData from "./data";
+import { useMakerDAO } from "../../web3/hooks/MakerDAO";
+import { useStore } from "../../store/store";
 
 const useStyles = makeStyles(theme => ({
   root: {

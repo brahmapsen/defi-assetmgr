@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import validate from "validate.js";
 import { makeStyles } from "@material-ui/styles";
 import { useInitWeb3 } from "../../web3/hooks/initWeb3";
+import { useBalances } from "../../web3/hooks/Balances";
+import { usePrices } from "../../web3/hooks/Prices";
 import { useStore } from "../../store/store";
 import {
   Grid,
@@ -130,8 +132,7 @@ const SignIn = (props) => {
   const store = useStore();
   const classes = useStyles();
   const { setWallet } = useInitWeb3();
-
-  console.log(store);
+  usePrices();
 
   const connectWallet = (wallet) => {
     setWallet(wallet);

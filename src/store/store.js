@@ -6,6 +6,7 @@ const initialState = {
   web3: null,
   account: null,
   modals: { connectionPending: false },
+  balances: null
 };
 
 const reducer = (state, action) => {
@@ -13,22 +14,37 @@ const reducer = (state, action) => {
     case "setWeb3":
       return {
         ...state,
-        web3: action.web3,
+        web3: action.web3
       };
     case "setWallet":
       return {
         ...state,
-        wallet: action.wallet,
+        wallet: action.wallet
       };
     case "setAccount":
       return {
         ...state,
-        account: action.account,
+        account: action.account
       };
     case "setModals":
       return {
         ...state,
-        modals: action.modals,
+        modals: action.modals
+      };
+    case "setPrices":
+      return {
+        ...state,
+        prices: action.prices
+      };
+    case "setBalances":
+      return {
+        ...state,
+        balances: action.balances
+      };
+    case "setMaker":
+      return {
+        ...state,
+        maker: action.maker
       };
     case "disconnect":
       return initialState;
