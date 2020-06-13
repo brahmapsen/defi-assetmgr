@@ -18,7 +18,10 @@ export function useBalances(web3, account) {
           wei = await web3.eth.getBalance(account);
         } else {
           //ERC20 balance
-          let contract = new web3.eth.Contract(erc20ABI, token.address);
+          let contract = new web3.eth.Contract(
+            erc20ABI,
+            token.address[state.network]
+          );
           wei = await contract.methods.balanceOf(account).call();
         }
         ether = Web3.utils.fromWei(wei, "ether");

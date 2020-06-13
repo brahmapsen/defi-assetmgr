@@ -1,8 +1,8 @@
-import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
-import clsx from 'clsx';
-import PropTypes from 'prop-types';
-import { makeStyles, useTheme } from '@material-ui/styles';
+import React from "react";
+import { Doughnut } from "react-chartjs-2";
+import clsx from "clsx";
+import PropTypes from "prop-types";
+import { makeStyles, useTheme } from "@material-ui/styles";
 import {
   Card,
   CardHeader,
@@ -10,27 +10,27 @@ import {
   IconButton,
   Divider,
   Typography
-} from '@material-ui/core';
-import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
-import RefreshIcon from '@material-ui/icons/Refresh';
-import TabletMacIcon from '@material-ui/icons/TabletMac';
+} from "@material-ui/core";
+import HomeWorkIcon from "@material-ui/icons/HomeWork";
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import RefreshIcon from "@material-ui/icons/Refresh";
+import { Gold as GoldIcon, Crypto as CryptoIcon } from "icons";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: '100%'
+    height: "100%"
   },
   chartContainer: {
-    position: 'relative',
-    height: '300px'
+    position: "relative",
+    height: "300px"
   },
   stats: {
     marginTop: theme.spacing(2),
-    display: 'flex',
-    justifyContent: 'center'
+    display: "flex",
+    justifyContent: "center"
   },
   device: {
-    textAlign: 'center',
+    textAlign: "center",
     padding: theme.spacing(1)
   },
   deviceIcon: {
@@ -47,18 +47,19 @@ const UsersByDevice = props => {
   const data = {
     datasets: [
       {
-        data: [63, 15, 22],
+        data: [50, 30, 10, 10],
         backgroundColor: [
+          theme.palette.success.main,
           theme.palette.primary.main,
-          theme.palette.error.main,
-          theme.palette.warning.main
+          theme.palette.warning.main,
+          theme.palette.error.main
         ],
         borderWidth: 8,
         borderColor: theme.palette.white,
         hoverBorderColor: theme.palette.white
       }
     ],
-    labels: ['Desktop', 'Tablet', 'Mobile']
+    labels: ["Cash", "Crypto", "Gold", "Real Estate"]
   };
 
   const options = {
@@ -72,7 +73,7 @@ const UsersByDevice = props => {
     layout: { padding: 0 },
     tooltips: {
       enabled: true,
-      mode: 'index',
+      mode: "index",
       intersect: false,
       borderWidth: 1,
       borderColor: theme.palette.divider,
@@ -85,58 +86,52 @@ const UsersByDevice = props => {
 
   const devices = [
     {
-      title: 'Desktop',
-      value: '63',
-      icon: <LaptopMacIcon />,
+      title: "Cash",
+      value: "50",
+      icon: <AttachMoneyIcon />,
+      color: theme.palette.success.main
+    },
+    {
+      title: "Crypto",
+      value: "30",
+      icon: <CryptoIcon />,
       color: theme.palette.primary.main
     },
     {
-      title: 'Tablet',
-      value: '15',
-      icon: <TabletMacIcon />,
-      color: theme.palette.error.main
+      title: "Gold",
+      value: "10",
+      icon: <GoldIcon />,
+      color: theme.palette.warning.main
     },
     {
-      title: 'Mobile',
-      value: '23',
-      icon: <PhoneIphoneIcon />,
-      color: theme.palette.warning.main
+      title: "Real Estate",
+      value: "10",
+      icon: <HomeWorkIcon />,
+      color: theme.palette.error.main
     }
   ];
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <Card {...rest} className={clsx(classes.root, className)}>
       <CardHeader
         action={
           <IconButton size="small">
             <RefreshIcon />
           </IconButton>
         }
-        title="Users By Device"
+        title="Asset Allocation"
       />
       <Divider />
       <CardContent>
         <div className={classes.chartContainer}>
-          <Doughnut
-            data={data}
-            options={options}
-          />
+          <Doughnut data={data} options={options} />
         </div>
         <div className={classes.stats}>
           {devices.map(device => (
-            <div
-              className={classes.device}
-              key={device.title}
-            >
+            <div className={classes.device} key={device.title}>
               <span className={classes.deviceIcon}>{device.icon}</span>
               <Typography variant="body1">{device.title}</Typography>
-              <Typography
-                style={{ color: device.color }}
-                variant="h2"
-              >
+              <Typography style={{ color: device.color }} variant="h2">
                 {device.value}%
               </Typography>
             </div>

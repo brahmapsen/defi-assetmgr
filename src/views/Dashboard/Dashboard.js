@@ -7,7 +7,13 @@ import { Redirect } from "react-router-dom";
 import { useMakerDeposits } from "../../web3/hooks/MakerDeposits";
 import { useMakerDebts } from "../../web3/hooks/MakerDebts";
 
-import { TotalDebt, TotalAssets, TotalNet, WalletTokens } from "./components";
+import {
+  TotalDebt,
+  UsersByDevice,
+  TotalAssets,
+  TotalNet,
+  WalletTokens
+} from "./components";
 
 import tokens from "../../web3/config/tokens";
 
@@ -39,6 +45,8 @@ const Dashboard = () => {
   const { prices, balances } = store.state;
   const { debts } = useMakerDebts();
   const { deposits } = useMakerDeposits();
+
+  console.log(store.state);
 
   if (!store.state.web3) {
     return <Redirect to="/sign-in" />;
@@ -73,8 +81,11 @@ const Dashboard = () => {
             <Grid item lg={4} sm={6} xl={4} xs={12}>
               <TotalDebt total={totalDebt} />
             </Grid>
-            <Grid item lg={12} md={12} xl={12} xs={12}>
+            <Grid item lg={7} md={6} xl={3} xs={12}>
               <WalletTokens tokens={walletTokens} />
+            </Grid>
+            <Grid item lg={5} md={6} xl={3} xs={12}>
+              <UsersByDevice />
             </Grid>
           </Grid>
         </div>

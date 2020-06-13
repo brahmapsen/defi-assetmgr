@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     padding: 0
   },
   inner: {
-    minWidth: 800
+    minWidth: 600
   },
   tokenContainer: {
     display: "flex",
@@ -61,10 +61,7 @@ const WalletTokens = props => {
                 <TableRow key={token.symbol}>
                   <TableCell>
                     <div className={classes.tokenContainer}>
-                      <Avatar
-                        className={classes.avatar}
-                        src={token.imgURL}
-                      ></Avatar>
+                      <img className={classes.avatar} src={token.imgURL} />
                       <Typography variant="body1">{token.symbol}</Typography>
                     </div>
                   </TableCell>

@@ -6,7 +6,8 @@ const initialState = {
   web3: null,
   account: null,
   modals: { connectionPending: false },
-  balances: null
+  balances: null,
+  network: null
 };
 
 const reducer = (state, action) => {
@@ -25,6 +26,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         account: action.account
+      };
+    case "setNetwork":
+      return {
+        ...state,
+        network: action.network
       };
     case "setModals":
       return {

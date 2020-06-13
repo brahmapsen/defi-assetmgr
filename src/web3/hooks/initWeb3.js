@@ -53,13 +53,27 @@ export function useInitWeb3() {
         //Fortmatic wallet
         case "Fortmatic":
           // TODO: Step 2: Setup Developer API Key
-          let fm = new Fortmatic("pk_test_2143334B2A521D2F");
+          let fm = new Fortmatic("pk_test_2143334B2A521D2F", "kovan");
           web3 = new Web3(fm.getProvider());
+          window.web3 = web3;
           let accounts = await fm.user.login();
           account = accounts[0];
           break;
       }
       dispatch({ type: "setAccount", account });
+
+      //set network
+      const networkId = await web3.eth.net.getId();
+      let network;
+      console.log("network", networkId);
+      switch (networkId) {
+        case 42:
+          network = "kovan";
+          break;
+        default:
+          network = "main";
+      }
+      dispatch({ type: "setNetwork", network });
       dispatch({ type: "setWeb3", web3 });
 
       modals.connectionPending = false;

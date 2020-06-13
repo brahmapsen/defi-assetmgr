@@ -8,7 +8,9 @@ const URL_BASE = "https://api.coingecko.com/api/v3/simple/price?ids=";
 const URL_CURRENCIES = "&vs_currencies=usd";
 
 //coingecko ids as string
-let ids = tokens.map((x) => x.coingecko).join("%2C");
+let ids = tokens.map(x => x.coingecko).join("%2C");
+
+console.log(URL_BASE + ids + URL_CURRENCIES);
 
 export function usePrices() {
   let prices = {};
@@ -30,6 +32,6 @@ export function usePrices() {
     getPrices();
   }, []);
   return {
-    prices,
+    prices
   };
 }
