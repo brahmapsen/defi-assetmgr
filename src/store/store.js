@@ -52,6 +52,11 @@ const reducer = (state, action) => {
         ...state,
         maker: action.maker
       };
+    case "setSavings":
+      return {
+        ...state,
+        savings: action.savings
+      };
     case "disconnect":
       return initialState;
     default:

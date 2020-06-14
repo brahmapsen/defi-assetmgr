@@ -36,14 +36,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const WalletTokens = props => {
-  const { className, ...rest } = props;
+const SavingsAssets = props => {
+  const { prices, className, ...rest } = props;
 
   const classes = useStyles();
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      <CardHeader title={`Assets`} />
+      <CardHeader title="Assets" />
       <Divider />
       <CardContent className={classes.content}>
         <div className={classes.inner}>
@@ -51,23 +51,34 @@ const WalletTokens = props => {
             <TableHead>
               <TableRow>
                 <TableCell>Token</TableCell>
+                <TableCell>Platform</TableCell>
                 <TableCell>Balance</TableCell>
-                <TableCell>Price</TableCell>
                 <TableCell>Value</TableCell>
+                <TableCell>Accured Interest</TableCell>
+                <TableCell>APY</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.tokens.map(token => (
-                <TableRow key={token.symbol}>
+              {props.savings.map(saving => (
+                <TableRow key={saving.token}>
                   <TableCell>
                     <div className={classes.tokenContainer}>
-                      <img className={classes.avatar} src={token.imgURL} />
-                      <Typography variant="body1">{token.symbol}</Typography>
+                      <img
+                        className={classes.avatar}
+                        src={"/images/tokens/" + saving.token + ".svg"}
+                      />
+                      <Typography variant="body1">{saving.token}</Typography>
                     </div>
                   </TableCell>
-                  <TableCell>{token.balance.toFixed(4)}</TableCell>
-                  <TableCell>${token.price.toFixed(2)} </TableCell>
-                  <TableCell>${token.value.toFixed(2)}</TableCell>
+                  <TableCell>{saving.platform}</TableCell>
+                  <TableCell>{saving.balance.toFixed(2)} </TableCell>
+                  <TableCell>
+                    ${(saving.balance * prices[saving.token]).toFixed(2)}
+                  </TableCell>
+                  <TableCell>
+                    ${(saving.totalInterest * prices[saving.token]).toFixed(2)}
+                  </TableCell>
+                  <TableCell>{saving.apy.toFixed(2)}%</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -79,8 +90,8 @@ const WalletTokens = props => {
   );
 };
 
-WalletTokens.propTypes = {
+SavingsAssets.propTypes = {
   className: PropTypes.string
 };
 
-export default WalletTokens;
+export default SavingsAssets;

@@ -8,7 +8,7 @@ import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 const useStyles = makeStyles(theme => ({
   root: {
     height: "100%",
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.success.main,
     color: theme.palette.primary.contrastText
   },
   content: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     backgroundColor: theme.palette.white,
-    color: theme.palette.primary.main,
+    color: theme.palette.success.main,
     height: 56,
     width: 56
   },
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const TotalNet = props => {
+const TotalIncome = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
@@ -46,7 +46,7 @@ const TotalNet = props => {
               gutterBottom
               variant="body2"
             >
-              TOTAL NET
+              TOTAL INCOME
             </Typography>
             <Typography color="inherit" variant="h3">
               ${props.total.toFixed(2)}
@@ -63,8 +63,8 @@ const TotalNet = props => {
   );
 };
 
-TotalNet.propTypes = {
+TotalIncome.propTypes = {
   className: PropTypes.string
 };
 
-export default TotalNet;
+export default TotalIncome;

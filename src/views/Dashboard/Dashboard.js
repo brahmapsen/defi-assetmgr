@@ -12,6 +12,7 @@ import {
   UsersByDevice,
   TotalAssets,
   TotalNet,
+  TotalIncome,
   WalletTokens
 } from "./components";
 
@@ -39,10 +40,18 @@ const getTotalDebt = debts => {
   return parseFloat(total);
 };
 
+const getTotalIncome = (savings, prices) => {
+  let total = 0;
+  for (const saving of savings) {
+    total = total + saving.totalInterest * prices[saving.token];
+  }
+  return total;
+};
+
 const Dashboard = () => {
   const classes = useStyles();
   const store = useStore();
-  const { prices, balances } = store.state;
+  const { prices, balances, savings } = store.state;
   const { debts } = useMakerDebts();
   const { deposits } = useMakerDeposits();
 
@@ -51,7 +60,7 @@ const Dashboard = () => {
   if (!store.state.web3) {
     return <Redirect to="/sign-in" />;
   } else {
-    if (balances && debts && deposits) {
+    if (balances && debts && deposits && savings) {
       const walletTokens = tokens.map(token => {
         const tokenObj = {};
         tokenObj.imgURL = "/images/tokens/" + token.symbol + ".svg";
@@ -65,6 +74,8 @@ const Dashboard = () => {
 
       const totalNet = getTotalNet(walletTokens);
 
+      const totalIncome = getTotalIncome(savings, prices);
+
       const totalDebt = getTotalDebt(debts);
 
       const totalAssets = totalNet + totalDebt;
@@ -72,13 +83,16 @@ const Dashboard = () => {
       return (
         <div className={classes.root}>
           <Grid container spacing={4}>
-            <Grid item lg={4} sm={6} xl={4} xs={12}>
+            <Grid item lg={3} sm={6} xl={3} xs={12}>
               <TotalNet total={totalNet} />
             </Grid>
-            <Grid item lg={4} sm={6} xl={4} xs={12}>
+            <Grid item lg={3} sm={6} xl={3} xs={12}>
+              <TotalIncome total={totalIncome} />
+            </Grid>
+            <Grid item lg={3} sm={6} xl={3} xs={12}>
               <TotalAssets total={totalAssets} />
             </Grid>
-            <Grid item lg={4} sm={6} xl={4} xs={12}>
+            <Grid item lg={3} sm={6} xl={3} xs={12}>
               <TotalDebt total={totalDebt} />
             </Grid>
             <Grid item lg={7} md={6} xl={3} xs={12}>

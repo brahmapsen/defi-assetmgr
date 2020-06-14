@@ -65,7 +65,7 @@ export function useInitWeb3() {
       //set network
       const networkId = await web3.eth.net.getId();
       let network;
-      console.log("network", networkId);
+
       switch (networkId) {
         case 42:
           network = "kovan";

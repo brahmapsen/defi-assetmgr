@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/styles';
-import { Typography, Link } from '@material-ui/core';
+import React from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/styles";
+import { Typography, Link } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,18 +16,11 @@ const Footer = props => {
   const classes = useStyles();
 
   return (
-    <div
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <div {...rest} className={clsx(classes.root, className)}>
       <Typography variant="body1">
-        &copy;{' '}
-        <Link
-          component="a"
-          href="https://devias.io/"
-          target="_blank"
-        >
-          Devias IO
+        &copy;{" "}
+        <Link component="a" href="/" target="_blank">
+          Defi Dashboard
         </Link>
         . 2019
       </Typography>

@@ -46,7 +46,7 @@ const TotalNet = props => {
               gutterBottom
               variant="body2"
             >
-              TOTAL NET
+              TOTAL SAVINGS
             </Typography>
             <Typography color="inherit" variant="h3">
               ${props.total.toFixed(2)}
