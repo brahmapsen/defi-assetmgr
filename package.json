@@ -5,8 +5,8 @@
   "licence": "MIT",
   "version": "0.1.0",
   "engines": {
-    "node": "12.x",
-    "npm": "6.x"
+    "node": "12.13.1",
+    "npm": "6.12.1"
   },
   "scripts": {
     "start": "react-scripts start",
