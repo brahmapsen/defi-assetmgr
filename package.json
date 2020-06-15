@@ -4,6 +4,10 @@
   "email": "jhochbrueckner@gmail.com",
   "licence": "MIT",
   "version": "0.1.0",
+  "engines": {
+    "node": "12.x",
+    "npm": "6.x"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
