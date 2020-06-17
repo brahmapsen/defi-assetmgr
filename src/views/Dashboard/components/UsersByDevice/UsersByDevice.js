@@ -51,8 +51,8 @@ const UsersByDevice = props => {
         backgroundColor: [
           theme.palette.success.main,
           theme.palette.primary.main,
-          theme.palette.warning.main,
-          theme.palette.error.main
+          "#FFD700",
+          "#933A16"
         ],
         borderWidth: 8,
         borderColor: theme.palette.white,
@@ -101,13 +101,13 @@ const UsersByDevice = props => {
       title: "Gold",
       value: "10",
       icon: <GoldIcon />,
-      color: theme.palette.warning.main
+      color: "#FFD700"
     },
     {
       title: "Real Estate",
       value: "10",
       icon: <HomeWorkIcon />,
-      color: theme.palette.error.main
+      color: "#933A16"
     }
   ];
 

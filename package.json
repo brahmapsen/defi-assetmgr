@@ -2,6 +2,7 @@
   "name": "defi-portal",
   "author": "Jan Hochbrueckner",
   "email": "jhochbrueckner@gmail.com",
+  "homepage": "https://defi-portal.web.app/",
   "licence": "MIT",
   "version": "0.1.0",
   "engines": {
