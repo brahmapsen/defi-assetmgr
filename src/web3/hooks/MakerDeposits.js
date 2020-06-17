@@ -4,6 +4,8 @@ import { useMakerDAO } from "./MakerDAO";
 import { useStore } from "../../store/store";
 import erc20ABI from "../config/ERC20";
 import aDAIABI from "../config/aDAI";
+import LendingPoolAddressesProviderABI from "../config/aaveAddressProvider";
+import LendingPoolABI from "../config/aaveLendingPool";
 import tokens from "../config/tokens";
 import axios from "axios";
 
@@ -101,12 +103,38 @@ export function useMakerDeposits() {
         ether = Web3.utils.fromWei(wei, "ether");
         totalInterest = balance - parseFloat(ether);
 
+        //APY
+        const lpAddressProviderAddress =
+          "0x24a42fD28C976A61Df5D00D0599C34c4f90748c8"; // mainnet address, for other addresses: https://docs.aave.com/developers/developing-on-aave/deployed-contract-instances
+        const lpAddressProviderContract = new web3.eth.Contract(
+          LendingPoolAddressesProviderABI,
+          lpAddressProviderAddress
+        );
+
+        // Get the latest LendingPool contract address
+        const lpAddress = await lpAddressProviderContract.methods
+          .getLendingPool()
+          .call();
+
+        //lending pool contract
+        const lendingPoolContract = new web3.eth.Contract(
+          LendingPoolABI,
+          lpAddress
+        );
+
+        //Get reserve date
+        const aaveResult = await lendingPoolContract.methods
+          .getReserveData("0x6B175474E89094C44Da98b954EedeAC495271d0F")
+          .call();
+
+        const aaveAPY = parseFloat(aaveResult.liquidityRate) / 1e25;
+
         //saving item
         saving = {
           token: "DAI",
           platform: "Aave",
           balance,
-          apy: 3.47,
+          apy: aaveAPY,
           totalInterest
         };
         savings.push(saving);

@@ -8,30 +8,30 @@ import {
   Toolbar,
   Typography,
   IconButton,
-  Button,
+  Button
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
 import InputIcon from "@material-ui/icons/Input";
 import { useStore } from "../../../../store/store";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    boxShadow: "none",
+    boxShadow: "none"
   },
   flexGrow: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   signOutButton: {
-    marginLeft: theme.spacing(1),
+    marginLeft: theme.spacing(1)
   },
   title: {
     flexGrow: 1,
-    color: theme.palette.white,
-  },
+    color: theme.palette.white
+  }
 }));
 
-const Topbar = (props) => {
+const Topbar = props => {
   const { className, onSidebarOpen, ...rest } = props;
 
   const classes = useStyles();
@@ -50,7 +50,7 @@ const Topbar = (props) => {
         </IconButton>
         <RouterLink to="/">
           <Typography variant="h2" className={classes.title}>
-            Defi Dashboard
+            DeFi Dashboard
           </Typography>
         </RouterLink>
         <div className={classes.flexGrow} />
@@ -68,7 +68,7 @@ const Topbar = (props) => {
 
 Topbar.propTypes = {
   className: PropTypes.string,
-  onSidebarOpen: PropTypes.func,
+  onSidebarOpen: PropTypes.func
 };
 
 export default Topbar;

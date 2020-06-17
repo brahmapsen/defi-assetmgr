@@ -23,15 +23,15 @@ const tokens = [
       kovan: "0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa"
     },
     coingecko: "dai"
-  },
-  {
-    symbol: "PMGT",
-    address: {
-      main: "0xaffcdd96531bcd66faed95fc61e443d08f79efef",
-      kovan: "0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa"
-    },
-    coingecko: "perth-mint-gold-token"
   }
+  // {
+  //   symbol: "PMGT",
+  //   address: {
+  //     main: "0xaffcdd96531bcd66faed95fc61e443d08f79efef",
+  //     kovan: "0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa"
+  //   },
+  //   coingecko: "perth-mint-gold-token"
+  // }
 ];
 
 export default tokens;
