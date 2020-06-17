@@ -14,8 +14,6 @@ const COMPOUND_URL = "https://api.compound.finance/api/v2/account?addresses[]=";
 export function useMakerDeposits() {
   const { state, dispatch } = useStore();
   useMakerDAO();
-  const [deposits, setDeposits] = useState(null);
-
   const maker = state.maker;
   const web3 = state.web3;
 
@@ -23,7 +21,7 @@ export function useMakerDeposits() {
 
   useEffect(() => {
     async function getAssets() {
-      let depositsObj = initAssets;
+      let deposits = { totals: initAssets, savings: [] };
 
       let savings = [];
       let saving = {};
@@ -34,7 +32,7 @@ export function useMakerDeposits() {
       if (maker.vaults.length > 0) {
         //deposits of vaults
         for (const vault of maker.vaults) {
-          depositsObj[
+          deposits.totals[
             vault.collateralAmount.symbol
           ] = vault.collateralAmount.toNumber();
         }
@@ -54,7 +52,7 @@ export function useMakerDeposits() {
               token.lifetime_supply_interest_accrued.value
             );
 
-            depositsObj[token.symbol.substring(1)] = balance;
+            deposits.totals[token.symbol.substring(1)] = balance;
 
             //APY for compound
             const ctoken = new web3.eth.Contract(erc20ABI, token.address);
@@ -96,7 +94,7 @@ export function useMakerDeposits() {
         wei = await aDai.methods.balanceOf(maker.proxy).call();
         ether = Web3.utils.fromWei(wei, "ether");
         balance = parseFloat(ether);
-        depositsObj["DAI"] = depositsObj["DAI"] + balance;
+        deposits.totals["DAI"] = deposits.totals["DAI"] + balance;
 
         //initial balance
         wei = await aDai.methods.principalBalanceOf(maker.proxy).call();
@@ -140,18 +138,14 @@ export function useMakerDeposits() {
         savings.push(saving);
       }
 
-      setDeposits(depositsObj);
+      deposits.savings = savings;
 
       //set savings in global storage
-      dispatch({ type: "setSavings", savings });
+      dispatch({ type: "setDeposits", deposits });
     }
 
     if (maker) {
       getAssets();
     }
   }, [maker]);
-
-  return {
-    deposits
-  };
 }

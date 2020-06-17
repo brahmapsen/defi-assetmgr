@@ -51,22 +51,24 @@ const getTotalIncome = (savings, prices) => {
 const Dashboard = () => {
   const classes = useStyles();
   const store = useStore();
-  const { prices, balances, savings } = store.state;
   const { debts } = useMakerDebts();
-  const { deposits } = useMakerDeposits();
+  useMakerDeposits();
+  const { prices, balances, deposits } = store.state;
 
   console.log(store.state);
 
   if (!store.state.web3) {
     return <Redirect to="/sign-in" />;
   } else {
-    if (balances && debts && deposits && savings) {
+    if (balances && debts && deposits) {
       const walletTokens = tokens.map(token => {
         const tokenObj = {};
         tokenObj.imgURL = "/images/tokens/" + token.symbol + ".svg";
         tokenObj.symbol = token.symbol;
         tokenObj.balance =
-          balances[token.symbol] - debts[token.symbol] + deposits[token.symbol];
+          balances[token.symbol] -
+          debts[token.symbol] +
+          deposits.totals[token.symbol];
         tokenObj.price = prices[token.symbol];
         tokenObj.value = tokenObj.balance * tokenObj.price;
         return tokenObj;
@@ -74,7 +76,7 @@ const Dashboard = () => {
 
       const totalNet = getTotalNet(walletTokens);
 
-      const totalIncome = getTotalIncome(savings, prices);
+      const totalIncome = getTotalIncome(deposits.savings, prices);
 
       const totalDebt = getTotalDebt(debts);
 

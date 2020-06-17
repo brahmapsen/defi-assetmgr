@@ -52,10 +52,10 @@ const reducer = (state, action) => {
         ...state,
         maker: action.maker
       };
-    case "setSavings":
+    case "setDeposits":
       return {
         ...state,
-        savings: action.savings
+        deposits: action.deposits
       };
     case "disconnect":
       return initialState;

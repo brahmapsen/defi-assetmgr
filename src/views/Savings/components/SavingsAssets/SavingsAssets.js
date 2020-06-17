@@ -60,7 +60,7 @@ const SavingsAssets = props => {
             </TableHead>
             <TableBody>
               {props.savings.map(saving => (
-                <TableRow key={saving.token}>
+                <TableRow key={saving.token + saving.platform}>
                   <TableCell>
                     <div className={classes.tokenContainer}>
                       <img

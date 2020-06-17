@@ -36,12 +36,13 @@ const getTotalIncome = (savings, prices) => {
 const Savings = () => {
   const classes = useStyles();
   const store = useStore();
-  const { prices, savings } = store.state;
+  const { prices, deposits } = store.state;
 
   if (!store.state.web3) {
     return <Redirect to="/sign-in" />;
   } else {
-    if (savings) {
+    if (deposits.savings) {
+      const savings = deposits.savings;
       const totalIncome = getTotalIncome(savings, prices);
 
       const totalBalance = getTotalBalance(savings, prices);
