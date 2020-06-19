@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { useStore } from "../../../../store/store";
-import clsx from "clsx";
+import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/styles";
+import clsx from "clsx";
 import {
   Card,
   CardActions,
@@ -16,7 +15,8 @@ import {
   TableHead,
   TableRow,
   Typography,
-  Avatar
+  Avatar,
+  Link
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -38,14 +38,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const WalletTokens = props => {
-  const { className, ...rest } = props;
+const Properties = props => {
+  const { prices, className, ...rest } = props;
 
   const classes = useStyles();
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      <CardHeader title={`Assets`} />
+      <CardHeader title="Properties" />
       <Divider />
       <CardContent className={classes.content}>
         <div className={classes.inner}>
@@ -53,23 +53,36 @@ const WalletTokens = props => {
             <TableHead>
               <TableRow>
                 <TableCell>Token</TableCell>
+                <TableCell>Name</TableCell>
                 <TableCell>Balance</TableCell>
-                <TableCell>Price</TableCell>
                 <TableCell>Value</TableCell>
+                <TableCell>Rental Yield</TableCell>
+                <TableCell>Detail</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.tokens.map(token => (
-                <TableRow key={token.symbol}>
+              {props.properties.map(property => (
+                <TableRow key={property.name}>
                   <TableCell>
                     <div className={classes.tokenContainer}>
-                      <img className={classes.avatar} src={token.imgURL} />
-                      <Typography variant="body1">{token.symbol}</Typography>
+                      <img
+                        className={classes.avatar}
+                        src={"/images/tokens/REALT.png"}
+                      />
+                      <Typography variant="body1">REALT</Typography>
                     </div>
                   </TableCell>
-                  <TableCell>{token.balance.toFixed(4)}</TableCell>
-                  <TableCell>${token.price.toFixed(2)} </TableCell>
-                  <TableCell>${token.value.toFixed(2)}</TableCell>
+                  <TableCell>{property.name}</TableCell>
+                  <TableCell>{property.amount.toFixed(0)} </TableCell>
+                  <TableCell>
+                    ${(property.amount * property.price).toFixed(2)}
+                  </TableCell>
+                  <TableCell>{property.apy.toFixed(2)}%</TableCell>
+                  <TableCell>
+                    <Link href={property.link} target="_blank">
+                      Detail
+                    </Link>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -81,8 +94,8 @@ const WalletTokens = props => {
   );
 };
 
-WalletTokens.propTypes = {
+Properties.propTypes = {
   className: PropTypes.string
 };
 
-export default WalletTokens;
+export default Properties;

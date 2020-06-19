@@ -57,6 +57,11 @@ const reducer = (state, action) => {
         ...state,
         deposits: action.deposits
       };
+    case "setRealEstate":
+      return {
+        ...state,
+        realEstate: action.realEstate
+      };
     case "disconnect":
       return initialState;
     default:

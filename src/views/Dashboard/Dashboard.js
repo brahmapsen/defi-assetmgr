@@ -6,6 +6,7 @@ import { useStore } from "../../store/store";
 import { Redirect } from "react-router-dom";
 import { useMakerDeposits } from "../../web3/hooks/MakerDeposits";
 import { useMakerDebts } from "../../web3/hooks/MakerDebts";
+import { useRealEstate } from "../../web3/hooks/RealEstate";
 
 import {
   TotalDebt,
@@ -17,6 +18,7 @@ import {
 } from "./components";
 
 import tokens from "../../web3/config/tokens";
+import realTokens from "../../web3/config/REALT";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,30 +42,32 @@ const getTotalDebt = debts => {
   return parseFloat(total);
 };
 
-const getTotalIncome = (savings, prices) => {
+const getTotalIncome = (savings, balances, prices) => {
   let total = 0;
   for (const saving of savings) {
     total = total + saving.totalInterest * prices[saving.token];
   }
-  return total;
+  //to do: change to received USDC from rental income
+  return total + balances["USDC"];
 };
 
 const Dashboard = () => {
   const classes = useStyles();
   const store = useStore();
+  useRealEstate();
   const { debts } = useMakerDebts();
   useMakerDeposits();
-  const { prices, balances, deposits } = store.state;
+  const { prices, balances, deposits, realEstate } = store.state;
 
   console.log(store.state);
 
   if (!store.state.web3) {
     return <Redirect to="/sign-in" />;
   } else {
-    if (balances && debts && deposits) {
+    if (balances && debts && deposits && realEstate) {
       const walletTokens = tokens.map(token => {
         const tokenObj = {};
-        tokenObj.imgURL = "/images/tokens/" + token.symbol + ".svg";
+        tokenObj.imgURL = "/images/tokens/" + token.symbol + ".png";
         tokenObj.symbol = token.symbol;
         tokenObj.balance =
           balances[token.symbol] -
@@ -74,9 +78,20 @@ const Dashboard = () => {
         return tokenObj;
       });
 
+      //add REALT token
+      let realToken = {
+        imgURL: "/images/tokens/REALT.png",
+        symbol: "REALT",
+        balance: realEstate.totalAmount,
+        price: realEstate.totalValue / realEstate.totalAmount,
+        value: realEstate.totalValue
+      };
+
+      walletTokens.push(realToken);
+
       const totalNet = getTotalNet(walletTokens);
 
-      const totalIncome = getTotalIncome(deposits.savings, prices);
+      const totalIncome = getTotalIncome(deposits.savings, balances, prices);
 
       const totalDebt = getTotalDebt(debts);
 

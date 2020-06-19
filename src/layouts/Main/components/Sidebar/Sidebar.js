@@ -69,7 +69,7 @@ const Sidebar = props => {
     },
     {
       title: "Real Estate",
-      href: "/typography",
+      href: "/real-estate",
       icon: <HomeWorkIcon />
     },
     {

@@ -32,7 +32,9 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center"
   },
   avatar: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
+    height: 32,
+    width: 32
   }
 }));
 
@@ -65,7 +67,7 @@ const SavingsAssets = props => {
                     <div className={classes.tokenContainer}>
                       <img
                         className={classes.avatar}
-                        src={"/images/tokens/" + saving.token + ".svg"}
+                        src={"/images/tokens/" + saving.token + ".png"}
                       />
                       <Typography variant="body1">{saving.token}</Typography>
                     </div>

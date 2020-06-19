@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useStore } from "../../store/store";
 import Web3 from "web3";
 import tokens from "../config/tokens";
+import realTokens from "../config/REALT";
 import erc20ABI from "../config/ERC20";
 
 export function useBalances(web3, account) {
@@ -11,7 +12,7 @@ export function useBalances(web3, account) {
   useEffect(() => {
     async function getBalances(web3, account) {
       let wei;
-      let ether;
+      //ERC20 and Ether
       for (const token of tokens) {
         if (token.address === "0x") {
           //ETH balance
@@ -24,9 +25,10 @@ export function useBalances(web3, account) {
           );
           wei = await contract.methods.balanceOf(account).call();
         }
-        ether = Web3.utils.fromWei(wei, "ether");
-        balances[token.symbol] = parseFloat(ether);
+
+        balances[token.symbol] = parseFloat(wei) / 10 ** token.decimals;
       }
+
       dispatch({ type: "setBalances", balances });
     }
 
