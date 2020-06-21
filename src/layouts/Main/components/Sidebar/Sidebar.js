@@ -53,19 +53,14 @@ const Sidebar = props => {
       icon: <DashboardIcon />
     },
     {
-      title: "Savings",
-      href: "/savings",
-      icon: <AccountBalanceIcon />
-    },
-    {
       title: "Wallet",
       href: "/wallet",
       icon: <AccountBalanceWalletIcon />
     },
     {
-      title: "Exchange",
-      href: "/typography",
-      icon: <SwapHorizIcon />
+      title: "Savings",
+      href: "/savings",
+      icon: <AccountBalanceIcon />
     },
     {
       title: "Real Estate",
@@ -76,6 +71,11 @@ const Sidebar = props => {
       title: "Gold",
       href: "/icons",
       icon: <GoldIcon />
+    },
+    {
+      title: "Exchange",
+      href: "/typography",
+      icon: <SwapHorizIcon />
     },
     {
       title: "Account",

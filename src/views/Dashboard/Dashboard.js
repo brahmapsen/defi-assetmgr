@@ -4,9 +4,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { Grid } from "@material-ui/core";
 import { useStore } from "../../store/store";
 import { Redirect } from "react-router-dom";
-import { useMakerDeposits } from "../../web3/hooks/MakerDeposits";
-import { useMakerDebts } from "../../web3/hooks/MakerDebts";
-import { useRealEstate } from "../../web3/hooks/RealEstate";
+import { useSavings } from "../../savings/hooks/Assets";
+import { useRealEstate } from "../../realEstate/hooks/RealEstate";
 
 import {
   TotalDebt,
@@ -17,8 +16,7 @@ import {
   WalletTokens
 } from "./components";
 
-import tokens from "../../web3/config/tokens";
-import realTokens from "../../web3/config/REALT";
+const tokens = require("../../config/tokens/tokens.json");
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -55,23 +53,23 @@ const Dashboard = () => {
   const classes = useStyles();
   const store = useStore();
   useRealEstate();
-  const { debts } = useMakerDebts();
-  useMakerDeposits();
-  const { prices, balances, deposits, realEstate } = store.state;
+  useSavings();
+  const { prices, balances, savingAssets, realEstate } = store.state;
 
   console.log(store.state);
 
   if (!store.state.web3) {
     return <Redirect to="/sign-in" />;
   } else {
-    if (balances && debts && deposits && realEstate) {
+    if (balances && savingAssets && realEstate) {
+      const { debts, deposits } = savingAssets;
       const walletTokens = tokens.map(token => {
         const tokenObj = {};
         tokenObj.imgURL = "/images/tokens/" + token.symbol + ".png";
         tokenObj.symbol = token.symbol;
         tokenObj.balance =
           balances[token.symbol] -
-          debts[token.symbol] +
+          debts.totals[token.symbol] +
           deposits.totals[token.symbol];
         tokenObj.price = prices[token.symbol];
         tokenObj.value = tokenObj.balance * tokenObj.price;
@@ -93,7 +91,7 @@ const Dashboard = () => {
 
       const totalIncome = getTotalIncome(deposits.savings, balances, prices);
 
-      const totalDebt = getTotalDebt(debts);
+      const totalDebt = getTotalDebt(debts.totals);
 
       const totalAssets = totalNet + totalDebt;
 

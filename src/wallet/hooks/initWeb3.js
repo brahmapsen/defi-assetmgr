@@ -3,7 +3,7 @@ import { useStore } from "../../store/store";
 import Web3 from "web3"; // uses latest 1.x.x version
 import Fortmatic from "fortmatic";
 import { useBalances } from "./Balances";
-import { useMakerDAO } from "./MakerDAO";
+import { useMakerDAO } from "../../savings/hooks/MakerDAO";
 
 export function useInitWeb3() {
   const { state, dispatch } = useStore();

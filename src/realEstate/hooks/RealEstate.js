@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useStore } from "../../store/store";
-import realTokens from "../config/REALT";
-import erc20ABI from "../config/ERC20";
+
+const realTokens = require("../config/realTokens.json");
+const erc20ABI = require("../../config/abi/erc20");
 
 export function useRealEstate(web3, account) {
   const { state, dispatch } = useStore();

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useStore } from "../../store/store";
 import Maker from "@makerdao/dai";
 import { McdPlugin } from "@makerdao/dai-plugin-mcd";
@@ -29,5 +29,5 @@ export function useMakerDAO() {
     if (account) {
       getVaults(account);
     }
-  }, []);
+  }, [account]);
 }

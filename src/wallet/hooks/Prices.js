@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useStore } from "../../store/store";
 import axios from "axios";
-import tokens from "../config/tokens";
+const tokens = require("../../config/tokens/tokens.json");
 
 //coingecko URLS
 const URL_BASE = "https://api.coingecko.com/api/v3/simple/price?ids=";

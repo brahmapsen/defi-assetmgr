@@ -4,12 +4,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { Grid } from "@material-ui/core";
 import { useStore } from "../../store/store";
 import { Redirect } from "react-router-dom";
-import { useMakerDeposits } from "../../web3/hooks/MakerDeposits";
-import { useMakerDebts } from "../../web3/hooks/MakerDebts";
 
 import { TotalNet, TotalIncome, SavingsAssets } from "./components";
-
-import tokens from "../../web3/config/tokens";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,12 +32,13 @@ const getTotalIncome = (savings, prices) => {
 const Savings = () => {
   const classes = useStyles();
   const store = useStore();
-  const { prices, deposits } = store.state;
+  const { prices, savingAssets } = store.state;
 
   if (!store.state.web3) {
     return <Redirect to="/sign-in" />;
   } else {
-    if (deposits.savings) {
+    if (savingAssets) {
+      const { deposits } = savingAssets;
       const savings = deposits.savings;
       const totalIncome = getTotalIncome(savings, prices);
 

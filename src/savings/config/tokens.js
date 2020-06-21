@@ -29,10 +29,10 @@ const tokens = [
   },
   {
     symbol: "PMGT",
-    decimals: 18,
+    decimals: 5,
     address: {
       main: "0xaffcdd96531bcd66faed95fc61e443d08f79efef",
-      kovan: "0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa"
+      kovan: "0x2a3E0705dfB3Bb43a1bF2B952504D273BABcfE09"
     },
     coingecko: "perth-mint-gold-token"
   },
