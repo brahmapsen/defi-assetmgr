@@ -60,7 +60,6 @@ export function useInitWeb3() {
           account = accounts[0];
           break;
       }
-      dispatch({ type: "setAccount", account });
 
       //set network
       const networkId = await web3.eth.net.getId();
@@ -70,11 +69,24 @@ export function useInitWeb3() {
         case 42:
           network = "kovan";
           break;
-        default:
+        case 1:
           network = "main";
+          break;
+        default:
+          network = "other";
       }
-      dispatch({ type: "setNetwork", network });
-      dispatch({ type: "setWeb3", web3 });
+
+      if (network === "other") {
+        dispatch({
+          type: "setError",
+          error:
+            "You are connected to the wrong network. Please change to Main Ethereum Network or Kovan Test Network in Metamask."
+        });
+      } else {
+        dispatch({ type: "setAccount", account });
+        dispatch({ type: "setNetwork", network });
+        dispatch({ type: "setWeb3", web3 });
+      }
 
       modals.connectionPending = false;
       dispatch({ type: "setModals", modals });

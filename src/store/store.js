@@ -7,7 +7,8 @@ const initialState = {
   account: null,
   modals: { connectionPending: false },
   balances: null,
-  network: null
+  network: null,
+  error: null
 };
 
 const reducer = (state, action) => {
@@ -61,6 +62,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         realEstate: action.realEstate
+      };
+    case "setError":
+      return {
+        ...state,
+        error: action.error
       };
     case "disconnect":
       return initialState;

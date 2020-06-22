@@ -1,11 +1,15 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { Grid } from "@material-ui/core";
 import { useStore } from "../../store/store";
 import { Redirect } from "react-router-dom";
 
-import { TotalNet, TotalIncome, SavingsAssets } from "./components";
+import {
+  TotalNet,
+  TotalIncome,
+  SavingsAssets,
+  SavingInstructions
+} from "./components";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,21 +33,34 @@ const getTotalIncome = (savings, prices) => {
   return total;
 };
 
+const getStatus = (maker, savings) => {
+  if (savings.length > 0) {
+    return 3;
+  } else if (maker.vaults.lenght > 0) {
+    return 2;
+  } else if (maker.proxy) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
+
 const Savings = () => {
   const classes = useStyles();
   const store = useStore();
-  const { prices, savingAssets } = store.state;
+  const { prices, savingAssets, maker } = store.state;
 
   if (!store.state.web3) {
     return <Redirect to="/sign-in" />;
   } else {
-    if (savingAssets) {
-      const { deposits } = savingAssets;
-      const savings = deposits.savings;
-      const totalIncome = getTotalIncome(savings, prices);
+    const { deposits } = savingAssets;
+    const savings = deposits.savings;
+    const status = getStatus(maker, savings);
+    const totalIncome = getTotalIncome(savings, prices);
 
-      const totalBalance = getTotalBalance(savings, prices);
+    const totalBalance = getTotalBalance(savings, prices);
 
+    if (status === 3) {
       return (
         <div className={classes.root}>
           <Grid container spacing={4}>
@@ -60,19 +77,7 @@ const Savings = () => {
         </div>
       );
     } else {
-      return (
-        <Grid
-          container
-          direction="column"
-          alignItems="center"
-          justify="center"
-          style={{ minHeight: "100vh" }}
-        >
-          <Grid item>
-            <CircularProgress />
-          </Grid>
-        </Grid>
-      );
+      return <SavingInstructions step={status} />;
     }
   }
 };

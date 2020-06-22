@@ -2,19 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link as RouterLink, withRouter, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/styles";
-import { useInitWeb3 } from "../../web3/hooks/initWeb3";
-import { usePrices } from "../../web3/hooks/Prices";
-import { useHistory } from "../../web3/hooks/historic";
+import { useInitWeb3 } from "../../wallet/hooks/initWeb3";
+import { usePrices } from "../../wallet/hooks/Prices";
 import { useStore } from "../../store/store";
-import {
-  Grid,
-  Button,
-  IconButton,
-  TextField,
-  Link,
-  Typography
-} from "@material-ui/core";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { Grid, Button, Typography } from "@material-ui/core";
 import { MetaMaskButton } from "rimble-ui";
 
 const schema = {
@@ -132,7 +123,7 @@ const SignIn = props => {
   const classes = useStyles();
   const { setWallet } = useInitWeb3();
   usePrices();
-  //useHistory();
+
   const connectWallet = wallet => {
     setWallet(wallet);
   };
