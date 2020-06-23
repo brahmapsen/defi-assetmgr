@@ -9,7 +9,7 @@ import { useRealEstate } from "../../realEstate/hooks/RealEstate";
 
 import {
   TotalDebt,
-  UsersByDevice,
+  AssetAllocation,
   TotalAssets,
   TotalNet,
   TotalIncome,
@@ -38,6 +38,23 @@ const getTotalDebt = debts => {
     total = total + debts[token.symbol];
   }
   return parseFloat(total);
+};
+
+const getAssetAllocation = (tokens, total) => {
+  let assetAllocations = {};
+  for (const token of tokens) {
+    assetAllocations[token.class]
+      ? (assetAllocations[token.class] =
+          assetAllocations[token.class] + token.value)
+      : (assetAllocations[token.class] = token.value);
+  }
+  for (const assetClass of Object.keys(assetAllocations)) {
+    assetAllocations[assetClass] > 0
+      ? (assetAllocations[assetClass] =
+          (assetAllocations[assetClass] / total) * 100)
+      : (assetAllocations[assetClass] = 0);
+  }
+  return assetAllocations;
 };
 
 const getTotalIncome = (savings, balances, prices) => {
@@ -73,6 +90,7 @@ const Dashboard = () => {
           deposits.totals[token.symbol];
         tokenObj.price = prices[token.symbol];
         tokenObj.value = tokenObj.balance * tokenObj.price;
+        tokenObj.class = token.class;
         return tokenObj;
       });
 
@@ -82,7 +100,8 @@ const Dashboard = () => {
         symbol: "REALT",
         balance: realEstate.totalAmount,
         price: realEstate.totalValue / realEstate.totalAmount,
-        value: realEstate.totalValue
+        value: realEstate.totalValue,
+        class: "realEstate"
       };
 
       walletTokens.push(realToken);
@@ -94,6 +113,8 @@ const Dashboard = () => {
       const totalDebt = getTotalDebt(debts.totals);
 
       const totalAssets = totalNet + totalDebt;
+
+      const assetAllocation = getAssetAllocation(walletTokens, totalNet);
 
       return (
         <div className={classes.root}>
@@ -114,7 +135,7 @@ const Dashboard = () => {
               <WalletTokens tokens={walletTokens} />
             </Grid>
             <Grid item lg={5} md={6} xl={3} xs={12}>
-              <UsersByDevice />
+              <AssetAllocation allocation={assetAllocation} />
             </Grid>
           </Grid>
         </div>

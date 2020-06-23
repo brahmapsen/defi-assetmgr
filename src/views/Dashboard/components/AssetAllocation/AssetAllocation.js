@@ -38,16 +38,26 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UsersByDevice = props => {
-  const { className, ...rest } = props;
+const AssetAllocation = props => {
+  const { className, allocation, ...rest } = props;
 
   const classes = useStyles();
   const theme = useTheme();
 
+  const cash = allocation["cash"];
+  const crypto = allocation["crypto"];
+  const gold = allocation["gold"];
+  const realEstate = allocation["realEstate"];
+
   const data = {
     datasets: [
       {
-        data: [50, 30, 10, 10],
+        data: [
+          cash.toFixed(4),
+          crypto.toFixed(4),
+          gold.toFixed(4),
+          realEstate.toFixed(4)
+        ],
         backgroundColor: [
           theme.palette.success.main,
           theme.palette.primary.main,
@@ -87,25 +97,25 @@ const UsersByDevice = props => {
   const devices = [
     {
       title: "Cash",
-      value: "50",
+      value: cash.toFixed(0),
       icon: <AttachMoneyIcon />,
       color: theme.palette.success.main
     },
     {
       title: "Crypto",
-      value: "30",
+      value: crypto.toFixed(0),
       icon: <CryptoIcon />,
       color: theme.palette.primary.main
     },
     {
       title: "Gold",
-      value: "10",
+      value: gold.toFixed(0),
       icon: <GoldIcon />,
       color: "#FFD700"
     },
     {
       title: "Real Estate",
-      value: "10",
+      value: realEstate.toFixed(0),
       icon: <HomeWorkIcon />,
       color: "#933A16"
     }
@@ -142,8 +152,8 @@ const UsersByDevice = props => {
   );
 };
 
-UsersByDevice.propTypes = {
+AssetAllocation.propTypes = {
   className: PropTypes.string
 };
 
-export default UsersByDevice;
+export default AssetAllocation;
