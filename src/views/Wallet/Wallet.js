@@ -4,17 +4,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { Grid } from "@material-ui/core";
 import { useStore } from "../../store/store";
 import { Redirect } from "react-router-dom";
-import { useSavings } from "../../savings/hooks/Assets";
-import { useRealEstate } from "../../realEstate/hooks/RealEstate";
 
-import {
-  TotalDebt,
-  UsersByDevice,
-  TotalAssets,
-  TotalNet,
-  TotalIncome,
-  WalletTokens
-} from "./components";
+import { TotalNet, WalletTokens } from "./components";
 
 const tokens = require("../../config/tokens/tokens.json");
 
@@ -52,25 +43,20 @@ const getTotalIncome = (savings, balances, prices) => {
 const Dashboard = () => {
   const classes = useStyles();
   const store = useStore();
-  useRealEstate();
-  useSavings();
-  const { prices, balances, savingAssets, realEstate } = store.state;
+
+  const { prices, balances, realEstate } = store.state;
 
   console.log(store.state);
 
   if (!store.state.web3) {
     return <Redirect to="/sign-in" />;
   } else {
-    if (balances && savingAssets && realEstate) {
-      const { debts, deposits } = savingAssets;
+    if (balances) {
       const walletTokens = tokens.map(token => {
         const tokenObj = {};
         tokenObj.imgURL = "/images/tokens/" + token.symbol + ".png";
         tokenObj.symbol = token.symbol;
-        tokenObj.balance =
-          balances[token.symbol] -
-          debts.totals[token.symbol] +
-          deposits.totals[token.symbol];
+        tokenObj.balance = balances[token.symbol];
         tokenObj.price = prices[token.symbol];
         tokenObj.value = tokenObj.balance * tokenObj.price;
         return tokenObj;
@@ -89,12 +75,6 @@ const Dashboard = () => {
 
       const totalNet = getTotalNet(walletTokens);
 
-      const totalIncome = getTotalIncome(deposits.savings, balances, prices);
-
-      const totalDebt = getTotalDebt(debts.totals);
-
-      const totalAssets = totalNet + totalDebt;
-
       return (
         <div className={classes.root}>
           <Grid container spacing={4}>
@@ -102,19 +82,16 @@ const Dashboard = () => {
               <TotalNet total={totalNet} />
             </Grid>
             <Grid item lg={3} sm={6} xl={3} xs={12}>
-              <TotalIncome total={totalIncome} />
+              {/* <TotalIncome total={totalIncome} /> */}
             </Grid>
             <Grid item lg={3} sm={6} xl={3} xs={12}>
-              <TotalAssets total={totalAssets} />
+              {/* <TotalAssets total={totalAssets} /> */}
             </Grid>
             <Grid item lg={3} sm={6} xl={3} xs={12}>
-              <TotalDebt total={totalDebt} />
+              {/* <TotalDebt total={totalDebt} /> */}
             </Grid>
-            <Grid item lg={7} md={6} xl={3} xs={12}>
+            <Grid item lg={12} md={12} xl={12} xs={12}>
               <WalletTokens tokens={walletTokens} />
-            </Grid>
-            <Grid item lg={5} md={6} xl={3} xs={12}>
-              <UsersByDevice />
             </Grid>
           </Grid>
         </div>

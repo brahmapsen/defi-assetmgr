@@ -45,7 +45,7 @@ const WalletTokens = props => {
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      <CardHeader title="Net Assets" />
+      <CardHeader title="Assets" />
       <Divider />
       <CardContent className={classes.content}>
         <div className={classes.inner}>
