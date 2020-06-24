@@ -151,7 +151,7 @@ export function useSavings() {
         //dydx protocol
 
         const TOKENTX_URL =
-          "http://api.etherscan.io/api?module=account&action=tokentx&address=";
+          "https://api.etherscan.io/api?module=account&action=tokentx&address=";
         const result = await axios.get(TOKENTX_URL + maker.proxy);
         const tokenTXs = result.data.result;
         const soloTX = tokenTXs.filter(
@@ -193,6 +193,7 @@ export function useSavings() {
           });
         }
       }
+
       deposits.savings = savings;
 
       //set sassets in global storage
