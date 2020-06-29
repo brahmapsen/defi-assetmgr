@@ -1,0 +1,10 @@
+[
+  {
+    "token1": "ETH",
+    "token2": "ZRX",
+    "address": {
+      "main": "0xc6f348dd3b91a56d117ec0071c1e9b83c0996de4",
+      "kovan": "0x"
+    }
+  }
+]

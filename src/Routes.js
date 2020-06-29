@@ -8,6 +8,7 @@ import {
   Dashboard as DashboardView,
   Wallet as WalletView,
   Savings as SavingsView,
+  Investments as InvestmentsView,
   RealEstate as RealEstateView,
   SignIn as SignInView,
   NotFound as NotFoundView
@@ -36,10 +37,10 @@ const Routes = () => {
         path="/wallet"
       />
       <RouteWithLayout
-        component={DashboardView}
+        component={InvestmentsView}
         exact
         layout={MainLayout}
-        path="/products"
+        path="/investments"
       />
       <RouteWithLayout
         component={RealEstateView}

@@ -4,12 +4,15 @@ import Web3 from "web3"; // uses latest 1.x.x version
 import Fortmatic from "fortmatic";
 import { useBalances } from "./Balances";
 import { useMakerDAO } from "../../savings/hooks/MakerDAO";
+import { useTransactions } from "./transactions";
+import { useInvestments } from "investments/hooks/investments";
 
 export function useInitWeb3() {
   const { state, dispatch } = useStore();
   const [wallet, setWallet] = useState(null);
 
   useBalances();
+  useTransactions();
   useMakerDAO();
 
   let modals = state.modals;

@@ -5,13 +5,10 @@ import { makeStyles } from "@material-ui/styles";
 import { Divider, Drawer } from "@material-ui/core";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
-import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
-import TextFieldsIcon from "@material-ui/icons/TextFields";
-import ImageIcon from "@material-ui/icons/Image";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import SettingsIcon from "@material-ui/icons/Settings";
-import LockOpenIcon from "@material-ui/icons/LockOpen";
 import SwapHorizIcon from "@material-ui/icons/SwapHoriz";
+import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import { Gold as GoldIcon } from "icons";
 import HomeWorkIcon from "@material-ui/icons/HomeWork";
@@ -61,6 +58,11 @@ const Sidebar = props => {
       title: "Savings",
       href: "/savings",
       icon: <AccountBalanceIcon />
+    },
+    {
+      title: "Investments",
+      href: "/investments",
+      icon: <TrendingUpIcon />
     },
     {
       title: "Real Estate",

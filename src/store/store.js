@@ -63,6 +63,16 @@ const reducer = (state, action) => {
         ...state,
         realEstate: action.realEstate
       };
+    case "setInvestments":
+      return {
+        ...state,
+        investments: action.investments
+      };
+    case "setTxs":
+      return {
+        ...state,
+        txs: action.txs
+      };
     case "setError":
       return {
         ...state,

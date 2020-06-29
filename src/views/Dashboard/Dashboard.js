@@ -6,6 +6,7 @@ import { useStore } from "../../store/store";
 import { Redirect } from "react-router-dom";
 import { useSavings } from "../../savings/hooks/Assets";
 import { useRealEstate } from "../../realEstate/hooks/RealEstate";
+import { useInvestments } from "../../investments/hooks/investments";
 
 import {
   TotalDebt,
@@ -57,10 +58,16 @@ const getAssetAllocation = (tokens, total) => {
   return assetAllocations;
 };
 
-const getTotalIncome = (savings, balances, prices) => {
+const getTotalIncome = (savings, balances, investments, prices) => {
   let total = 0;
+  //savings
   for (const saving of savings) {
-    total = total + saving.totalInterest * prices[saving.token];
+    total += saving.totalInterest * prices[saving.token];
+  }
+  //investments
+  for (const pool of investments.pools) {
+    total +=
+      pool.delta1 * prices[pool.token1] + pool.delta2 * prices[pool.token2];
   }
   //to do: change to received USDC from rental income
   return total + balances["USDC"];
@@ -71,14 +78,21 @@ const Dashboard = () => {
   const store = useStore();
   useRealEstate();
   useSavings();
-  const { prices, balances, savingAssets, realEstate } = store.state;
+  useInvestments();
+  const {
+    prices,
+    balances,
+    savingAssets,
+    investments,
+    realEstate
+  } = store.state;
 
   console.log(store.state);
 
   if (!store.state.web3) {
     return <Redirect to="/sign-in" />;
   } else {
-    if (balances && savingAssets && realEstate) {
+    if (balances && savingAssets && realEstate && investments) {
       const { debts, deposits } = savingAssets;
       const walletTokens = tokens.map(token => {
         const tokenObj = {};
@@ -87,7 +101,8 @@ const Dashboard = () => {
         tokenObj.balance =
           balances[token.symbol] -
           debts.totals[token.symbol] +
-          deposits.totals[token.symbol];
+          deposits.totals[token.symbol] +
+          investments.totals[token.symbol];
         tokenObj.price = prices[token.symbol];
         tokenObj.value = tokenObj.balance * tokenObj.price;
         tokenObj.class = token.class;
@@ -108,7 +123,12 @@ const Dashboard = () => {
 
       const totalNet = getTotalNet(walletTokens);
 
-      const totalIncome = getTotalIncome(deposits.savings, balances, prices);
+      const totalIncome = getTotalIncome(
+        deposits.savings,
+        balances,
+        investments,
+        prices
+      );
 
       const totalDebt = getTotalDebt(debts.totals);
 
