@@ -3,12 +3,12 @@ import { useStore } from "../../store/store";
 import axios from "axios";
 
 const TX_URL_1 =
-  "http://api.etherscan.io/api?module=account&action=txlist&address=";
+  "https://api.etherscan.io/api?module=account&action=txlist&address=";
 const TX_URL_2 =
   "&startblock=0&endblock=99999999&sort=asc&apikey=UQMDG5738X215YQQY4QK8S7N3D4YGIB65X";
 
 const TOKEN_TX_URL =
-  "http://api.etherscan.io/api?module=account&action=tokentx&address=";
+  "https://api.etherscan.io/api?module=account&action=tokentx&address=";
 
 export function useTransactions() {
   const { state, dispatch } = useStore();
