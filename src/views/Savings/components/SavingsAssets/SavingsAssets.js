@@ -15,7 +15,8 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Typography
+  Typography,
+  Link
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -92,7 +93,11 @@ const SavingsAssets = props => {
                         <Typography variant="body1">{saving.token}</Typography>
                       </div>
                     </TableCell>
-                    <TableCell>{saving.platform}</TableCell>
+                    <TableCell>
+                      <Link href={saving.link} target="_blank">
+                        {saving.platform}
+                      </Link>
+                    </TableCell>
                     <TableCell>{saving.balance.toFixed(2)} </TableCell>
                     <TableCell>
                       ${(saving.balance * prices[saving.token]).toFixed(2)}

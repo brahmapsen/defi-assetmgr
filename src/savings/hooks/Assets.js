@@ -91,6 +91,7 @@ export function useSavings() {
               saving = {
                 token: token.symbol.substring(1),
                 platform: "Compound",
+                link: "https://compound.finance/",
                 balance,
                 apy,
                 totalInterest
@@ -141,6 +142,7 @@ export function useSavings() {
           saving = {
             token: "DAI",
             platform: "Aave",
+            link: "https://aave.com/",
             balance,
             apy: aaveAPY,
             totalInterest
@@ -187,6 +189,7 @@ export function useSavings() {
           savings.push({
             token: "DAI",
             platform: "dYdX",
+            link: "https://dydx.exchange/",
             balance,
             apy: dydxAPY * 100,
             totalInterest: balance - totalWeiToDyDX / 1e18
