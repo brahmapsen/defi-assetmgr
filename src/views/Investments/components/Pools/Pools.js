@@ -82,7 +82,7 @@ const Pools = props => {
               </TableHead>
               <TableBody>
                 {props.pools.map(pool => (
-                  <TableRow key={pool.token2 + pool.token2}>
+                  <TableRow key={pool.token1 + pool.token2}>
                     <TableCell>
                       <div className={classes.tokenContainer}>
                         <img

@@ -1,7 +1,7 @@
 [
   {
-    "token1": "ETH",
-    "token2": "DAI",
+    "token1": "DAI",
+    "token2": "ETH",
     "address": {
       "main": "0xa478c2975ab1ea89e8196811f51a7b7ade33eb11",
       "kovan": "0xb10cf58e08b94480fcb81d341a63295ebb2062c2"

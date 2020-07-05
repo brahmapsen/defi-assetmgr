@@ -14,7 +14,9 @@ function Vault() {
   return (
     <React.Fragment>
       <Typography variant="h5" gutterBottom>
-        Before earning interst you need to setup a vault.
+        Before earning interest on your savings you need get some DAI. DAI is
+        like the US $ on the Ethereum blockchain. You can borrow DAI against
+        your ETH by opening a vault.
       </Typography>
       <Typography variant="subtitle1">
         Currently DeFI Dashboard doesn't support that step. We recommend{" "}
@@ -36,8 +38,8 @@ function DAI() {
         Deposit ETH into vault and generate DAI
       </Typography>
       <Typography variant="subtitle1">
-        We recommend to generate not more DAI, that your collateralization ratio
-        is below 200%.
+        We recommend to generate not too much DAI. Your collateralization ratio
+        shouldn't be below 200%.
       </Typography>
     </React.Fragment>
   );
@@ -50,7 +52,8 @@ function Savings() {
         Earn interest on your saved DAIs
       </Typography>
       <Typography variant="subtitle1">
-        Currently DeFI Dashboard doesn't support that step. We recommend{" "}
+        Put your DAI into a dezentralized savings account. Currently DeFI
+        Dashboard doesn't support that step. We recommend{" "}
         <Link
           href="https://app.defisaver.com/smart-savings/manage"
           target="_blank"

@@ -2,27 +2,32 @@ import { useEffect, useState } from "react";
 import { useStore } from "../../store/store";
 import axios from "axios";
 
-const TX_URL_1 =
-  "https://api.etherscan.io/api?module=account&action=txlist&address=";
-const TX_URL_2 =
-  "&startblock=0&endblock=99999999&sort=asc&apikey=UQMDG5738X215YQQY4QK8S7N3D4YGIB65X";
+//to do: export API key
 
-const TOKEN_TX_URL =
-  "https://api.etherscan.io/api?module=account&action=tokentx&address=";
+const {
+  base,
+  txlist,
+  tokenlist,
+  apikey
+} = require("../../config/api/etherscan.json");
 
 export function useTransactions() {
   const { state, dispatch } = useStore();
   useEffect(() => {
     async function getTransactions() {
-      const txResult = await axios.get(TX_URL_1 + state.account + TX_URL_2);
+      const txResult = await axios.get(
+        base[state.network] + txlist + state.account + apikey
+      );
       const txs = txResult.data.result;
 
-      const tokenTxResult = await axios.get(TOKEN_TX_URL + state.account);
+      const tokenTxResult = await axios.get(
+        base[state.network] + tokenlist + state.account + apikey
+      );
       const tokenTxs = tokenTxResult.data.result;
       dispatch({ type: "setTxs", txs: { all: txs, token: tokenTxs } });
     }
-    if (state.account) {
-      getTransactions(state.web3, state.account);
+    if (state.account && state.network) {
+      getTransactions();
     }
-  }, [state.account]);
+  }, [state.account, state.network]);
 }

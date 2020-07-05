@@ -22,14 +22,12 @@ export function useInvestments() {
           const poolToken = await poolContract.methods
             .balanceOf(account)
             .call();
-          console.log(pool.token2, poolToken);
+
           //get share of pool (pool token and underlying tokens)
           const poolTotalSupply = await poolContract.methods
             .totalSupply()
             .call();
-          console.log(pool.token2, poolTotalSupply);
           const poolReserves = await poolContract.methods.getReserves().call();
-          console.log(pool.token2, poolReserves);
           const poolShare = parseFloat(poolToken) / parseFloat(poolTotalSupply);
           const tokenShare = [
             parseFloat(poolReserves[0]) * poolShare,
