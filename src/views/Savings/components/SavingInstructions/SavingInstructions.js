@@ -14,18 +14,16 @@ function Vault() {
   return (
     <React.Fragment>
       <Typography variant="h5" gutterBottom>
-        Before earning interest on your savings you need get some DAI. DAI is
-        like the US $ on the Ethereum blockchain. You can borrow DAI against
-        your ETH by opening a vault.
+        Open a Vault to start generating DAI
       </Typography>
       <Typography variant="subtitle1">
-        Currently DeFI Dashboard doesn't support that step. We recommend{" "}
+        We recommend{" "}
         <Link href="https://oasis.app/borrow" target="_blank">
           Oasis
         </Link>{" "}
         for opening a vault. Please select ETH-A as collateral type and make
-        sure that you connect the same wallet that you are using in the
-        dashboard.
+        sure that you connect the same wallet that you are using in Defi
+        Dashboard.
       </Typography>
     </React.Fragment>
   );
@@ -38,8 +36,7 @@ function DAI() {
         Deposit ETH into vault and generate DAI
       </Typography>
       <Typography variant="subtitle1">
-        We recommend to generate not too much DAI. Your collateralization ratio
-        shouldn't be below 200%.
+        Make sure your collateralization ratio is at least 200%.
       </Typography>
     </React.Fragment>
   );
@@ -52,8 +49,7 @@ function Savings() {
         Earn interest on your saved DAIs
       </Typography>
       <Typography variant="subtitle1">
-        Put your DAI into a dezentralized savings account. Currently DeFI
-        Dashboard doesn't support that step. We recommend{" "}
+        Deposit DAIs into a dezentralized savings account. We recommend{" "}
         <Link
           href="https://app.defisaver.com/smart-savings/manage"
           target="_blank"
@@ -61,7 +57,7 @@ function Savings() {
           DefiSaver's Smart Savings
         </Link>{" "}
         for this. Please make sure that you connect the same wallet that you are
-        using in the dashboard.
+        using in Defi Dashboard.
       </Typography>
     </React.Fragment>
   );
@@ -104,7 +100,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const steps = ["Setup Vault", "Get some DAI", "Put DAI into saving accounts"];
+const steps = [
+  "Set up Vault",
+  "Get some DAI",
+  "Deposit DAI into saving accounts"
+];
 
 function getStepContent(step) {
   switch (step) {
