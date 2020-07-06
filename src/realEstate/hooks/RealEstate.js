@@ -3,7 +3,6 @@ import { useStore } from "../../store/store";
 import axios from "axios";
 import { reduceEachLeadingCommentRange } from "typescript";
 
-const realTokens = require("../config/token/realTokens.json");
 const erc20ABI = require("../../config/abi/erc20");
 const realTokenURL =
   "https://v2-api.sheety.co/70884751379cb0a5bf4256358bca669a/apiRealT/tokens";

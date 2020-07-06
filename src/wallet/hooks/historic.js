@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Web3 from "web3"; // uses latest 1.x.x version
+import Web3 from "realEstate/hooks/node_modules/wallet"; // uses latest 1.x.x version
 
 const account = "0x41ed148cE6489c105963e2C038c1435962a05C94";
 const ethNetwork =
