@@ -16,7 +16,7 @@ import {
   TableHead,
   TableRow,
   Typography,
-  Avatar
+  Link
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const WalletTokens = props => {
+const GoldTokens = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
@@ -68,7 +68,11 @@ const WalletTokens = props => {
                       <Typography variant="body1">{token.symbol}</Typography>
                     </div>
                   </TableCell>
-                  <TableCell>{token.name}</TableCell>
+                  <TableCell>
+                    <Link href={token.url} target="_blank">
+                      {token.name}
+                    </Link>
+                  </TableCell>
                   <TableCell>{token.balance.toFixed(4)}</TableCell>
                   <TableCell>${token.price.toFixed(2)} </TableCell>
                   <TableCell>${token.value.toFixed(2)}</TableCell>
@@ -83,8 +87,8 @@ const WalletTokens = props => {
   );
 };
 
-WalletTokens.propTypes = {
+GoldTokens.propTypes = {
   className: PropTypes.string
 };
 
-export default WalletTokens;
+export default GoldTokens;

@@ -71,7 +71,7 @@ const Sidebar = props => {
     },
     {
       title: "Gold",
-      href: "/icons",
+      href: "/gold",
       icon: <GoldIcon />
     },
     {

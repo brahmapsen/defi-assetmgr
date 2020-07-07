@@ -10,6 +10,7 @@ import {
   Savings as SavingsView,
   Investments as InvestmentsView,
   RealEstate as RealEstateView,
+  Gold as GoldView,
   SignIn as SignInView,
   NotFound as NotFoundView
 } from "./views";
@@ -49,10 +50,10 @@ const Routes = () => {
         path="/real-estate"
       />
       <RouteWithLayout
-        component={DashboardView}
+        component={GoldView}
         exact
         layout={MainLayout}
-        path="/icons"
+        path="/gold"
       />
       <RouteWithLayout
         component={DashboardView}
