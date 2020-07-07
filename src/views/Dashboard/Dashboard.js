@@ -58,7 +58,7 @@ const getAssetAllocation = (tokens, total) => {
   return assetAllocations;
 };
 
-const getTotalIncome = (savings, balances, investments, prices) => {
+const getTotalIncome = (savings, investments, realEstate, prices) => {
   let total = 0;
   //savings
   for (const saving of savings) {
@@ -69,8 +69,10 @@ const getTotalIncome = (savings, balances, investments, prices) => {
     total +=
       pool.delta1 * prices[pool.token1] + pool.delta2 * prices[pool.token2];
   }
-  //to do: change to received USDC from rental income
-  return total + balances["USDC"];
+  //realEstate
+  total += realEstate.totalIncome * prices["USDC"];
+
+  return total;
 };
 
 const Dashboard = () => {
@@ -125,8 +127,8 @@ const Dashboard = () => {
 
       const totalIncome = getTotalIncome(
         deposits.savings,
-        balances,
         investments,
+        realEstate,
         prices
       );
 

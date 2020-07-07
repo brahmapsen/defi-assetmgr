@@ -16,13 +16,13 @@ const useStyles = makeStyles(theme => ({
 const RealEstate = () => {
   const classes = useStyles();
   const store = useStore();
-  const { realEstate, balances } = store.state;
+  const { realEstate } = store.state;
 
   if (!store.state.web3) {
     return <Redirect to="/sign-in" />;
   } else {
     if (realEstate) {
-      const { totalValue, properties } = realEstate;
+      const { totalIncome, totalValue, properties } = realEstate;
 
       return (
         <div className={classes.root}>
@@ -31,7 +31,7 @@ const RealEstate = () => {
               <TotalNet total={totalValue} />
             </Grid>
             <Grid item lg={4} sm={6} xl={4} xs={12}>
-              <TotalIncome total={balances["USDC"]} />
+              <TotalIncome total={totalIncome} />
             </Grid>
             <Grid item lg={12} md={12} xl={12} xs={12}>
               <Properties properties={properties} />

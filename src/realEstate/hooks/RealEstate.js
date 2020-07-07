@@ -73,9 +73,18 @@ export function useRealEstate() {
         }
       }
 
+      //get USDC rental income
+      const disperseContract = "0xd152f549545093347a162dce210e7293f1452150";
+      const disperseTX = txs.token.filter(tx => tx.from === disperseContract);
+      const totalUSDCfromDisperse = disperseTX.reduce(
+        (a, b) => a + parseFloat(b.value),
+        0
+      );
+      const totalIncome = totalUSDCfromDisperse / 10 ** 6;
+
       dispatch({
         type: "setRealEstate",
-        realEstate: { totalAmount, totalValue, properties }
+        realEstate: { totalIncome, totalAmount, totalValue, properties }
       });
     }
 
