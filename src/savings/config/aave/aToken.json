@@ -831,11 +831,11 @@
     }
   ],
   "aDAIContract": {
-    "main": "0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d",
+    "mainnet": "0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d",
     "kovan": "0x58AD4cB396411B691A9AAb6F74545b2C5217FE6a"
   },
   "DAIContract": {
-    "main": "0x6b175474e89094c44da98b954eedeac495271d0f",
+    "mainnet": "0x6b175474e89094c44da98b954eedeac495271d0f",
     "kovan": "0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD"
   }
 }

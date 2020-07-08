@@ -10,6 +10,7 @@ export function useBalances(web3, account) {
 
   useEffect(() => {
     async function getBalances(web3, account) {
+      console.log("get balances");
       let wei;
       //ERC20 and Ether
       for (const token of tokens) {

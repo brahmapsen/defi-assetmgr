@@ -5,15 +5,20 @@ import { McdPlugin } from "@makerdao/dai-plugin-mcd";
 
 export function useMakerDAO() {
   const { state, dispatch } = useStore();
-  const account = state.account;
+  const { network, account } = state;
+
+  //to do: export api key from url
 
   useEffect(() => {
-    async function getVaults(account) {
+    async function getVaults() {
       let vaults = [];
-      const maker = await Maker.create("browser", {
+      const infuraUrl =
+        "https://" + network + ".infura.io/v3/842298ccc2df48c5bca74c273520dab3";
+      const maker = await Maker.create("http", {
+        url: infuraUrl,
+        log: false,
         plugins: [McdPlugin]
       });
-
       const manager = maker.service("mcd:cdpManager");
       const proxy = await maker.service("proxy").getProxyAddress(account);
       if (proxy) {
@@ -26,8 +31,8 @@ export function useMakerDAO() {
       dispatch({ type: "setMaker", maker: { vaults, proxy } });
     }
 
-    if (account) {
-      getVaults(account);
+    if (account && network) {
+      getVaults();
     }
-  }, [account]);
+  }, [account, network]);
 }

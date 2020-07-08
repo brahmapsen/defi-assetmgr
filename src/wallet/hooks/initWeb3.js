@@ -29,16 +29,12 @@ export function useInitWeb3() {
         case "MetaMask":
           if (window.ethereum) {
             console.log("Using modern web3 provider.");
+            // Get network provider and web3 instance.
             web3 = new Web3(window.ethereum);
-            try {
-              // Request account access if needed
-              await window.ethereum.enable().then(wallets => {
-                account = wallets[0];
-              });
-            } catch (error) {
-              // User denied account access...
-              console.log("User cancelled connect request. Error:", error);
-            }
+            // Use web3 to get the user's accounts.
+            await window.ethereum.enable();
+            const accounts = await web3.eth.getAccounts();
+            account = accounts[0];
           }
           // Legacy dapp browsers, public wallet address always exposed
           else if (window.web3) {
@@ -73,7 +69,7 @@ export function useInitWeb3() {
           network = "kovan";
           break;
         case 1:
-          network = "main";
+          network = "mainnet";
           break;
         default:
           network = "other";

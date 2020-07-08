@@ -7,6 +7,7 @@ import { Redirect } from "react-router-dom";
 import { useSavings } from "../../savings/hooks/Assets";
 import { useRealEstate } from "../../realEstate/hooks/RealEstate";
 import { useInvestments } from "../../investments/hooks/investments";
+import LoadingAssetsModal from "../../wallet/components/LoadingAssetsModal";
 
 import {
   TotalDebt,
@@ -164,17 +165,19 @@ const Dashboard = () => {
       );
     } else {
       return (
-        <Grid
-          container
-          direction="column"
-          alignItems="center"
-          justify="center"
-          style={{ minHeight: "100vh" }}
-        >
-          <Grid item>
-            <CircularProgress />
-          </Grid>
-        </Grid>
+        <LoadingAssetsModal />
+
+        // <Grid
+        //   container
+        //   direction="column"
+        //   alignItems="center"
+        //   justify="center"
+        //   style={{ minHeight: "100vh" }}
+        // >
+        //   <Grid item>
+        //     <CircularProgress />
+        //   </Grid>
+        // </Grid>
       );
     }
   }
