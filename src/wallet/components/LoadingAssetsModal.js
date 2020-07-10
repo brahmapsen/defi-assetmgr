@@ -6,7 +6,6 @@ import { useStore } from "../../store/store";
 const LoadingsAssetsModal = props => {
   const { dispatch } = useStore();
   const [modalOpen, setModalOpen] = useState(true);
-  console.log("modal open", modalOpen);
 
   const closeModal = () => {
     setModalOpen(false);
