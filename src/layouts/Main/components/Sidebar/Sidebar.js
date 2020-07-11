@@ -73,22 +73,22 @@ const Sidebar = props => {
       title: "Gold",
       href: "/gold",
       icon: <GoldIcon />
-    },
-    {
-      title: "Exchange",
-      href: "/typography",
-      icon: <SwapHorizIcon />
-    },
-    {
-      title: "Account",
-      href: "/account",
-      icon: <AccountBoxIcon />
-    },
-    {
-      title: "Settings",
-      href: "/settings",
-      icon: <SettingsIcon />
     }
+    // {
+    //   title: "Exchange",
+    //   href: "/typography",
+    //   icon: <SwapHorizIcon />
+    // },
+    // {
+    //   title: "Account",
+    //   href: "/account",
+    //   icon: <AccountBoxIcon />
+    // },
+    // {
+    //   title: "Settings",
+    //   href: "/settings",
+    //   icon: <SettingsIcon />
+    // }
   ];
 
   return (

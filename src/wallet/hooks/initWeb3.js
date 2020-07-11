@@ -82,10 +82,7 @@ export function useInitWeb3() {
               "You are connected to the wrong network. Please change to Main Ethereum Network or Kovan Test Network in Metamask."
           });
         } else {
-          dispatch({
-            type: "setAccount",
-            account: "0xE363531E294c49cf4d4f842deB76113210f6F242"
-          });
+          dispatch({ type: "setAccount", account });
           dispatch({ type: "setNetwork", network });
           dispatch({ type: "setWeb3", web3 });
         }

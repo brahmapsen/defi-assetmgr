@@ -48,7 +48,7 @@ const getStatus = (maker, savings) => {
 const Savings = () => {
   const classes = useStyles();
   const store = useStore();
-  const { prices, savingAssets, maker } = store.state;
+  const { prices, savingAssets, maker, network } = store.state;
 
   if (!store.state.web3) {
     return <Redirect to="/sign-in" />;
@@ -77,7 +77,7 @@ const Savings = () => {
         </div>
       );
     } else {
-      return <SavingInstructions step={status} />;
+      return <SavingInstructions step={status} network={network} />;
     }
   }
 };
