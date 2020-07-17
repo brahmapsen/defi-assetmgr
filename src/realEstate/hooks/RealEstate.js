@@ -41,8 +41,8 @@ export function useRealEstate() {
       //REALT tokens with api
       const result = await axios.get(realTokenURL);
       for (const token of result.data.tokens) {
-        if (token.assetPrice && token.totalTokens) {
-          const contractAddress = token.contract.toLowerCase();
+        if (token.assetPrice && token.totalTokens && token.ethereumContract) {
+          const contractAddress = token.ethereumContract.toLowerCase();
           const price = token.assetPrice / token.totalTokens;
           //check if any tokens received
           //calculate delta in tokens
