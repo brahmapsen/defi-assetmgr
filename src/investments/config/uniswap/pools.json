@@ -1,5 +1,13 @@
 [
   {
+    "token1": "USDC",
+    "token2": "ETH",
+    "address": {
+      "mainnet": "0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc",
+      "kovan": "0x"
+    }
+  },
+  {
     "token1": "DAI",
     "token2": "ETH",
     "address": {
