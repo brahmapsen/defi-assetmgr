@@ -65,39 +65,21 @@ const tiers = [
   {
     title: "Conservative",
     risk: "Low Risk - Low Reward",
-    description: [
-      "10 users included",
-      "2 GB of storage",
-      "Help center access",
-      "Email support"
-    ],
-    buttonText: "Sign up for free",
-    buttonVariant: "outlined"
+    allocation: [30, 30, 10, 30],
+    performance: [6.34, 5.75, 10.71, -8.67]
   },
   {
     title: "Moderate",
     subheader: "Recommended",
     risk: "Medium Risk - Medium Reward",
-    description: [
-      "20 users included",
-      "10 GB of storage",
-      "Help center access",
-      "Priority email support"
-    ],
-    buttonText: "Get started",
-    buttonVariant: "contained"
+    allocation: [10, 40, 20, 30],
+    performance: [15.33, 12.78, 30.11, -25.87]
   },
   {
     title: "Aggresive",
     risk: "High Risk - High Reward",
-    description: [
-      "50 users included",
-      "30 GB of storage",
-      "Help center access",
-      "Phone & email support"
-    ],
-    buttonText: "Contact us",
-    buttonVariant: "outlined"
+    allocation: [5, 50, 30, 15],
+    performance: [22.33, 19.78, 40.91, -38.85]
   }
 ];
 
@@ -124,6 +106,12 @@ export default function PortfolioSelect() {
         ]
       }
     ]
+  };
+
+  const options = {
+    legend: {
+      display: true
+    }
   };
 
   return (
@@ -171,7 +159,29 @@ export default function PortfolioSelect() {
                   >
                     Portfolio Composition
                   </Typography>
-                  <Pie data={data} />
+                  <Pie
+                    data={{
+                      labels: ["Cash", "Crypto", "Gold", "Real Estate"],
+                      datasets: [
+                        {
+                          data: tier.allocation,
+                          backgroundColor: [
+                            theme.palette.success.main,
+                            theme.palette.primary.main,
+                            "#FFD700",
+                            "#933A16"
+                          ],
+                          hoverBackgroundColor: [
+                            theme.palette.success.main,
+                            theme.palette.primary.main,
+                            "#FFD700",
+                            "#933A16"
+                          ]
+                        }
+                      ]
+                    }}
+                    options={options}
+                  />
                   <Typography
                     variant="h5"
                     align="center"
@@ -182,19 +192,19 @@ export default function PortfolioSelect() {
                   <Table size="small">
                     <TableRow>
                       <TableCell>Average 1-year</TableCell>
-                      <TableCell>8.01%</TableCell>
+                      <TableCell>{tier.performance[0]}%</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Average 3-year</TableCell>
-                      <TableCell>8.01%</TableCell>
+                      <TableCell>{tier.performance[1]}%</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Best 12-month</TableCell>
-                      <TableCell>40.01%</TableCell>
+                      <TableCell>{tier.performance[2]}%</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Worst 12-month</TableCell>
-                      <TableCell>-20.01%</TableCell>
+                      <TableCell>{tier.performance[3]}%</TableCell>
                     </TableRow>
                   </Table>
                 </CardContent>
