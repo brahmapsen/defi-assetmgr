@@ -65,21 +65,21 @@ const tiers = [
   {
     title: "Conservative",
     risk: "Low Risk - Low Reward",
-    allocation: [30, 30, 10, 30],
-    performance: [6.34, 5.75, 10.71, -8.67]
+    allocation: [50, 20, 10, 20],
+    performance: [22.38, 22.55, 52.66, -27.74]
   },
   {
     title: "Moderate",
     subheader: "Recommended",
     risk: "Medium Risk - Medium Reward",
-    allocation: [10, 40, 20, 30],
-    performance: [15.33, 12.78, 30.11, -25.87]
+    allocation: [20, 40, 20, 20],
+    performance: [36.29, 36.31, 122.41, -52.26]
   },
   {
     title: "Aggresive",
     risk: "High Risk - High Reward",
     allocation: [5, 50, 30, 15],
-    performance: [22.33, 19.78, 40.91, -38.85]
+    performance: [43.47, 42.17, 166.53, -61.99]
   }
 ];
 
