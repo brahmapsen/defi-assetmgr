@@ -8,7 +8,7 @@ import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 const useStyles = makeStyles(theme => ({
   root: {
     height: "100%",
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.secondary.main,
     color: theme.palette.primary.contrastText
   },
   content: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     backgroundColor: theme.palette.white,
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
     height: 56,
     width: 56
   },

@@ -18,20 +18,23 @@ import { Profile, SidebarNav, UpgradePlan } from "./components";
 const useStyles = makeStyles(theme => ({
   drawer: {
     width: 240,
+    borderRight: 'none',
     [theme.breakpoints.up("lg")]: {
       marginTop: 64,
       height: "calc(100% - 64px)"
     }
   },
   root: {
-    backgroundColor: theme.palette.white,
+    // backgroundColor: theme.palette.white,
+    backgroundColor: theme.palette.black,
     display: "flex",
     flexDirection: "column",
     height: "100%",
     padding: theme.spacing(2)
   },
   divider: {
-    margin: theme.spacing(2, 0)
+    margin: theme.spacing(2, 0),
+    backgroundColor: theme.palette.primary.main
   },
   nav: {
     marginBottom: theme.spacing(2)

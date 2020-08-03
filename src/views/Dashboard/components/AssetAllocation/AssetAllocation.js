@@ -131,7 +131,7 @@ const AssetAllocation = props => {
         }
         title="Asset Allocation"
       />
-      <Divider />
+      {/* <Divider /> */}
       <CardContent>
         <div className={classes.chartContainer}>
           <Doughnut data={data} options={options} />
