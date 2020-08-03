@@ -105,7 +105,7 @@ const AssetAllocation = props => {
       title: "Crypto",
       value: crypto.toFixed(0),
       icon: <CryptoIcon />,
-      color: theme.palette.primary.main
+      color: theme.palette.primary.white
     },
     {
       title: "Gold",
