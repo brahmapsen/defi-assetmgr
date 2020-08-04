@@ -14,7 +14,6 @@ import Routes from "./Routes";
 
 //global store
 import { StoreProvider } from "./store/store";
-import { CssBaseline } from "@material-ui/core";
 
 const browserHistory = createBrowserHistory();
 
@@ -31,7 +30,6 @@ export default class App extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <CssBaseline />
         <StoreProvider>
           <Router history={browserHistory}>
             <Routes />

@@ -61,7 +61,7 @@ const Profile = (props) => {
           spotcolor: "#000",
         }}
       />
-      <Typography color="textPrimary" className={classes.name} variant="h4">
+      <Typography className={classes.name} variant="h4">
         Main account
       </Typography>
       <Typography variant="body2">
