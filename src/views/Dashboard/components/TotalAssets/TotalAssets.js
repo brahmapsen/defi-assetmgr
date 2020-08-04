@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     backgroundColor: theme.palette.success.main,
-    color: theme.palette.text.primary,
     height: 56,
     width: 56
   },

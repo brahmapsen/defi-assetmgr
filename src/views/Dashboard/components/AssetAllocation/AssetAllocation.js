@@ -105,7 +105,7 @@ const AssetAllocation = props => {
       title: "Crypto",
       value: crypto.toFixed(0),
       icon: <CryptoIcon />,
-      color: theme.palette.primary.white
+      color: theme.palette.primary.main
     },
     {
       title: "Gold",
@@ -131,7 +131,7 @@ const AssetAllocation = props => {
         }
         title="Asset Allocation"
       />
-      {/* <Divider /> */}
+      <Divider />
       <CardContent>
         <div className={classes.chartContainer}>
           <Doughnut data={data} options={options} />
