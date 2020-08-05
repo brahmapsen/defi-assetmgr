@@ -110,7 +110,10 @@ export default function PortfolioSelect() {
 
   const options = {
     legend: {
-      display: true
+      display: true,
+      labels: {
+        fontColor: "#fff"
+      }
     }
   };
 
