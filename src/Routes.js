@@ -12,13 +12,20 @@ import {
   RealEstate as RealEstateView,
   Gold as GoldView,
   SignIn as SignInView,
-  NotFound as NotFoundView
+  NotFound as NotFoundView,
+  PortfolioSelect as PortfolioSelectView
 } from "./views";
 
 const Routes = () => {
   return (
     <Switch>
       <Redirect exact from="/" to="/sign-in" />
+      <RouteWithLayout
+        component={PortfolioSelectView}
+        exact
+        layout={MinimalLayout}
+        path="/select-portfolio"
+      />
       <RouteWithLayout
         component={DashboardView}
         exact
