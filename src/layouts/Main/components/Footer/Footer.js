@@ -6,7 +6,8 @@ import { Typography, Link } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(4)
+    padding: theme.spacing(4),
+    backgroundColor: theme.palette.background.paper
   }
 }));
 
@@ -23,10 +24,6 @@ const Footer = props => {
           Defi Dashboard
         </Link>
         . 2019
-      </Typography>
-      <Typography variant="caption">
-        Created with love for the environment. By designers and developers who
-        love to work together in offices!
       </Typography>
     </div>
   );

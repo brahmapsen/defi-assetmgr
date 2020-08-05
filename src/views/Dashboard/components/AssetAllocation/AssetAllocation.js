@@ -62,7 +62,7 @@ const AssetAllocation = props => {
           theme.palette.success.main,
           theme.palette.primary.main,
           "#FFD700",
-          "#933A16"
+          "#cb6b6b"
         ],
         borderWidth: 8,
         borderColor: theme.palette.white,
@@ -87,7 +87,7 @@ const AssetAllocation = props => {
       intersect: false,
       borderWidth: 1,
       borderColor: theme.palette.divider,
-      backgroundColor: theme.palette.white,
+      backgroundColor: theme.palette.backgroundColor,
       titleFontColor: theme.palette.text.primary,
       bodyFontColor: theme.palette.text.secondary,
       footerFontColor: theme.palette.text.secondary
@@ -117,7 +117,7 @@ const AssetAllocation = props => {
       title: "Real Estate",
       value: realEstate.toFixed(0),
       icon: <HomeWorkIcon />,
-      color: "#933A16"
+      color: "#cb6b6b"
     }
   ];
 

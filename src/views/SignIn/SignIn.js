@@ -155,7 +155,11 @@ const SignIn = props => {
             <div className={classes.content}>
               <div className={classes.contentBody}>
                 <div className={classes.form}>
-                  <Typography className={classes.title} variant="h2">
+                  <Typography
+                    className={classes.title}
+                    variant="h2"
+                    color="primary"
+                  >
                     Sign in
                   </Typography>
                   <Typography color="textSecondary" gutterBottom>

@@ -11,6 +11,7 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 import "./assets/scss/index.scss";
 import validators from "./common/validators";
 import Routes from "./Routes";
+import { CssBaseline } from "@material-ui/core";
 
 //global store
 import { StoreProvider } from "./store/store";
@@ -18,18 +19,19 @@ import { StoreProvider } from "./store/store";
 const browserHistory = createBrowserHistory();
 
 Chart.helpers.extend(Chart.elements.Rectangle.prototype, {
-  draw: chartjs.draw,
+  draw: chartjs.draw
 });
 
 validate.validators = {
   ...validate.validators,
-  ...validators,
+  ...validators
 };
 
 export default class App extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
+        <CssBaseline />
         <StoreProvider>
           <Router history={browserHistory}>
             <Routes />

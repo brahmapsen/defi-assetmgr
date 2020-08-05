@@ -43,7 +43,11 @@ const Topbar = props => {
   };
 
   return (
-    <AppBar {...rest} className={clsx(classes.root, className)}>
+    <AppBar
+      {...rest}
+      className={clsx(classes.root, className)}
+      style={{ background: "#333" }}
+    >
       <Toolbar>
         <IconButton edge="start" color="inherit" onClick={onSidebarOpen}>
           <MenuIcon />
