@@ -19,7 +19,7 @@ import {
 const Routes = () => {
   return (
     <Switch>
-      <Redirect exact from="/" to="/select-portfolio" />
+      <Redirect exact from="/" to="/sign-in" />
       <RouteWithLayout
         component={PortfolioSelectView}
         exact
