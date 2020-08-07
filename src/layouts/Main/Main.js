@@ -41,8 +41,6 @@ const Main = props => {
     setOpenSidebar(false);
   };
 
-  const shouldOpenSidebar = isDesktop ? true : openSidebar;
-
   return (
     <div
       className={clsx({
@@ -53,7 +51,7 @@ const Main = props => {
       <Topbar onSidebarOpen={handleSidebarOpen} />
       <Sidebar
         onClose={handleSidebarClose}
-        open={shouldOpenSidebar}
+        open={isDesktop ? true : openSidebar}
         variant={isDesktop ? "persistent" : "temporary"}
       />
       <main className={classes.content}>
