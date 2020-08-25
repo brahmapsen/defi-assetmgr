@@ -1,8 +1,6 @@
 import React from "react";
-import StarIcon from "@material-ui/icons/StarBorder";
-import Toolbar from "@material-ui/core/Toolbar";
+import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Pie } from "react-chartjs-2";
@@ -65,20 +63,20 @@ const tiers = [
   {
     title: "Conservative",
     risk: "Low Risk - Low Reward",
-    allocation: [50, 20, 10, 20],
+    allocation: [60, 30, 10],
     performance: [22.38, 22.55, 52.66, -27.74]
   },
   {
     title: "Moderate",
     subheader: "Recommended",
     risk: "Medium Risk - Medium Reward",
-    allocation: [20, 40, 20, 20],
+    allocation: [40, 30, 20],
     performance: [36.29, 36.31, 122.41, -52.26]
   },
   {
     title: "Aggresive",
     risk: "High Risk - High Reward",
-    allocation: [5, 50, 30, 15],
+    allocation: [10, 20, 70],
     performance: [43.47, 42.17, 166.53, -61.99]
   }
 ];
@@ -86,27 +84,6 @@ const tiers = [
 export default function PortfolioSelect() {
   const classes = useStyles();
   const theme = useTheme();
-
-  const data = {
-    labels: ["Cash", "Crypto", "Gold", "Real Estate"],
-    datasets: [
-      {
-        data: [25, 25, 25, 25],
-        backgroundColor: [
-          theme.palette.success.main,
-          theme.palette.primary.main,
-          "#FFD700",
-          "#933A16"
-        ],
-        hoverBackgroundColor: [
-          theme.palette.success.main,
-          theme.palette.primary.main,
-          "#FFD700",
-          "#933A16"
-        ]
-      }
-    ]
-  };
 
   const options = {
     legend: {
@@ -116,6 +93,8 @@ export default function PortfolioSelect() {
       }
     }
   };
+
+  const MyLink = props => <Link to="/select-portfolio" {...props} />;
 
   return (
     <React.Fragment>
@@ -164,21 +143,19 @@ export default function PortfolioSelect() {
                   </Typography>
                   <Pie
                     data={{
-                      labels: ["Cash", "Crypto", "Gold", "Real Estate"],
+                      labels: ["Cash", "Gold", "Crypto"],
                       datasets: [
                         {
                           data: tier.allocation,
                           backgroundColor: [
                             theme.palette.success.main,
-                            theme.palette.primary.main,
                             "#FFD700",
-                            "#933A16"
+                            theme.palette.primary.main
                           ],
                           hoverBackgroundColor: [
                             theme.palette.success.main,
-                            theme.palette.primary.main,
                             "#FFD700",
-                            "#933A16"
+                            theme.palette.primary.main
                           ]
                         }
                       ]
@@ -212,7 +189,16 @@ export default function PortfolioSelect() {
                   </Table>
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth variant="contained" color="primary">
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    component={Link}
+                    to={{
+                      pathname: "/allocate-assets",
+                      state: { allocation: tier.allocation }
+                    }}
+                  >
                     Select
                   </Button>
                 </CardActions>

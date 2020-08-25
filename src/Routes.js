@@ -13,7 +13,8 @@ import {
   Gold as GoldView,
   SignIn as SignInView,
   NotFound as NotFoundView,
-  PortfolioSelect as PortfolioSelectView
+  PortfolioSelect as PortfolioSelectView,
+  AssetAllocator as AssetAllocatorView
 } from "./views";
 
 const Routes = () => {
@@ -25,6 +26,12 @@ const Routes = () => {
         exact
         layout={MinimalLayout}
         path="/select-portfolio"
+      />
+      <RouteWithLayout
+        component={AssetAllocatorView}
+        exact
+        layout={MinimalLayout}
+        path="/allocate-assets"
       />
       <RouteWithLayout
         component={DashboardView}

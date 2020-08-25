@@ -7,3 +7,4 @@ export { default as NotFound } from "./NotFound";
 export { default as RealEstate } from "./RealEstate";
 export { default as SignIn } from "./SignIn";
 export { default as PortfolioSelect } from "./PortfolioSelect";
+export { default as AssetAllocator } from "./AssetAllocator";
