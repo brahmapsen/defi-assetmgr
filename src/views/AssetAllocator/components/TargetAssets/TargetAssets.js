@@ -143,14 +143,14 @@ const TargetAssets = props => {
             ethAmount = 0;
           } else if (
             //enough left for wbtc, we need to fill up from eth
-            total >
-            input + daiAmount + paxgAmount + ethAmount
+            total <
+            input + daiAmount + paxgAmount
           ) {
-            wbtcAmount = input;
-            ethAmount = total - input - daiAmount - paxgAmount;
-          } else {
             ethAmount = 0;
             wbtcAmount = total - daiAmount - paxgAmount;
+          } else {
+            wbtcAmount = input;
+            ethAmount = total - input - daiAmount - paxgAmount;
           }
           break;
       }
@@ -208,7 +208,7 @@ const TargetAssets = props => {
                     <OutlinedInput
                       id="outlined-adornment-amount"
                       type="number"
-                      value={amounts[asset.symbol]}
+                      value={amounts[asset.symbol].toFixed()}
                       onChange={handleChange(asset.symbol)}
                       startAdornment={
                         <InputAdornment position="start">$</InputAdornment>

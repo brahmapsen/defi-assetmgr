@@ -65,11 +65,11 @@ const getTotalIncome = (savings, investments, realEstate, prices) => {
   for (const saving of savings) {
     total += saving.totalInterest * prices[saving.token];
   }
-  //investments
-  for (const pool of investments.pools) {
-    total +=
-      pool.delta1 * prices[pool.token1] + pool.delta2 * prices[pool.token2];
-  }
+  // //investments
+  // for (const pool of investments.pools) {
+  //   total +=
+  //     pool.delta1 * prices[pool.token1] + pool.delta2 * prices[pool.token2];
+  // }
   //realEstate
   total += realEstate.totalIncome * prices["USDC"];
 
@@ -95,7 +95,7 @@ const Dashboard = () => {
   if (!store.state.web3) {
     return <Redirect to="/sign-in" />;
   } else {
-    if (balances && savingAssets && realEstate && investments) {
+    if (balances && savingAssets && realEstate) {
       const { debts, deposits } = savingAssets;
       const walletTokens = tokens.map(token => {
         const tokenObj = {};
@@ -104,8 +104,8 @@ const Dashboard = () => {
         tokenObj.balance =
           balances[token.symbol] -
           debts.totals[token.symbol] +
-          deposits.totals[token.symbol] +
-          investments.totals[token.symbol];
+          deposits.totals[token.symbol]; // +
+        //          investments.totals[token.symbol];
         tokenObj.price = prices[token.symbol];
         tokenObj.value = tokenObj.balance * tokenObj.price;
         tokenObj.class = token.class;

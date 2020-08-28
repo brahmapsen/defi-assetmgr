@@ -55,14 +55,14 @@ const AssetAllocation = props => {
         data: [
           cash.toFixed(4),
           crypto.toFixed(4),
-          gold.toFixed(4),
-          realEstate.toFixed(4)
+          gold.toFixed(4)
+          //          realEstate.toFixed(4)
         ],
         backgroundColor: [
           theme.palette.success.main,
           theme.palette.primary.main,
-          "#FFD700",
-          "#cb6b6b"
+          "#FFD700"
+          //         "#cb6b6b"
         ],
         borderWidth: 8,
         borderColor: theme.palette.white,
@@ -112,13 +112,13 @@ const AssetAllocation = props => {
       value: gold.toFixed(0),
       icon: <GoldIcon />,
       color: "#FFD700"
-    },
-    {
-      title: "Real Estate",
-      value: realEstate.toFixed(0),
-      icon: <HomeWorkIcon />,
-      color: "#cb6b6b"
     }
+    // {
+    //   title: "Real Estate",
+    //   value: realEstate.toFixed(0),
+    //   icon: <HomeWorkIcon />,
+    //   color: "#cb6b6b"
+    // }
   ];
 
   return (

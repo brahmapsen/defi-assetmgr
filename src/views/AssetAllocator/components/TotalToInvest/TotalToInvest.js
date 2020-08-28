@@ -49,7 +49,10 @@ const TotalToInvest = props => {
               TOTAL FUNDS TO INVEST
             </Typography>
             <Typography color="inherit" variant="h3">
-              ${props.total.toFixed(2)}
+              ${props.total.toFixed()}
+            </Typography>
+            <Typography color="inherit" variant="h5">
+              ({props.eth.toFixed(4)} ETH)
             </Typography>
           </Grid>
           <Grid item>

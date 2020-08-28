@@ -71,6 +71,9 @@ export function useInitWeb3() {
           case 1:
             network = "mainnet";
             break;
+          case 999:
+            network = "mainnet";
+            break;
           default:
             network = "other";
         }

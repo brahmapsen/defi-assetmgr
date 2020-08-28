@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Pie } from "react-chartjs-2";
+import { useBalances } from "../../wallet/hooks/Balances";
 
 import {
   CssBaseline,
@@ -70,7 +71,7 @@ const tiers = [
     title: "Moderate",
     subheader: "Recommended",
     risk: "Medium Risk - Medium Reward",
-    allocation: [40, 30, 20],
+    allocation: [40, 30, 30],
     performance: [36.29, 36.31, 122.41, -52.26]
   },
   {
@@ -84,6 +85,7 @@ const tiers = [
 export default function PortfolioSelect() {
   const classes = useStyles();
   const theme = useTheme();
+  useBalances();
 
   const options = {
     legend: {
@@ -93,8 +95,6 @@ export default function PortfolioSelect() {
       }
     }
   };
-
-  const MyLink = props => <Link to="/select-portfolio" {...props} />;
 
   return (
     <React.Fragment>
