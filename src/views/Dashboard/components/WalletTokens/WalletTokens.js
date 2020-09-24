@@ -59,19 +59,21 @@ const WalletTokens = props => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.tokens.map(token => (
-                <TableRow key={token.symbol}>
-                  <TableCell>
-                    <div className={classes.tokenContainer}>
-                      <img className={classes.avatar} src={token.imgURL} />
-                      <Typography variant="body1">{token.symbol}</Typography>
-                    </div>
-                  </TableCell>
-                  <TableCell>{token.balance.toFixed(4)}</TableCell>
-                  <TableCell>${token.price.toFixed(2)} </TableCell>
-                  <TableCell>${token.value.toFixed(2)}</TableCell>
-                </TableRow>
-              ))}
+              {props.tokens
+                .filter(token => token.value > 0)
+                .map(token => (
+                  <TableRow key={token.symbol}>
+                    <TableCell>
+                      <div className={classes.tokenContainer}>
+                        <img className={classes.avatar} src={token.imgURL} />
+                        <Typography variant="body1">{token.symbol}</Typography>
+                      </div>
+                    </TableCell>
+                    <TableCell>{token.balance.toFixed(4)}</TableCell>
+                    <TableCell>${token.price.toFixed(2)} </TableCell>
+                    <TableCell>${token.value.toFixed(2)}</TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </div>
