@@ -129,8 +129,8 @@ const SignIn = props => {
   };
 
   if (store.state.web3) {
-    //return <Redirect to="/select-portfolio" />;
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/select-portfolio" />;
+    //return <Redirect to="/dashboard" />;
   } else {
     return (
       <div className={classes.root}>

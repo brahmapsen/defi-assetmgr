@@ -17,12 +17,13 @@ export function useBalances(web3, account) {
           //ETH balance
           wei = await web3.eth.getBalance(account);
         } else {
-          //ERC20 balance
-          let contract = new web3.eth.Contract(
-            erc20ABI,
-            token.address[state.network]
-          );
-          wei = await contract.methods.balanceOf(account).call();
+          // //ERC20 balance
+          // let contract = new web3.eth.Contract(
+          //   erc20ABI,
+          //   token.address[state.network]
+          // );
+          //wei = await contract.methods.balanceOf(account).call();
+          wei = 0;
         }
 
         balances[token.symbol] = parseFloat(wei) / 10 ** token.decimals;

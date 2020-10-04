@@ -3,7 +3,7 @@ import { useStore } from "../../store/store";
 
 const tokens = require("../../config/tokens/tokens.json");
 const portfolioBalancerABI = require("../config/abi/PortfolioBalancer.json");
-const portfolioBalancerAddress = "0xAced2FF60e1Cd311F649F0a187279daC868d0852";
+const portfolioBalancerAddress = "0xfde89050d596820699e0f36a52247805E58D638c";
 
 const erc20ABI = require("../../config/abi/erc20.json");
 
@@ -36,6 +36,13 @@ export function usePortfolio(web3, account) {
             "0"
           )
           .send({ from: account, value: totalEth, gas: 4000000 });
+
+        // const result = await web3.eth.sendTransaction({
+        //   from: account,
+        //   to: "0x41ed148cE6489c105963e2C038c1435962a05C94",
+        //   value: 1000000000000000000
+        // });
+
         console.log(result);
 
         //update balances to export in util function
@@ -59,7 +66,7 @@ export function usePortfolio(web3, account) {
         console.log("update balance after tx");
         dispatch({ type: "setBalances", balances });
       } catch (err) {
-        console.log(err);
+        console.log("Error", err);
       }
     }
 
