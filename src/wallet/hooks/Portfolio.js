@@ -3,7 +3,7 @@ import { useStore } from "../../store/store";
 
 const tokens = require("../../config/tokens/tokens.json");
 const portfolioBalancerABI = require("../config/abi/PortfolioBalancer.json");
-const portfolioBalancerAddress = "0xfde89050d596820699e0f36a52247805E58D638c";
+const portfolioBalancerAddress = "0x630b0F2b6E81f397ac9067605fCa8a5Ec6864066";
 
 const erc20ABI = require("../../config/abi/erc20.json");
 
