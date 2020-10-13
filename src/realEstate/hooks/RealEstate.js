@@ -18,27 +18,27 @@ export function useRealEstate() {
       let properties = [];
 
       //REALT tokens with config tokens
-      for (const realToken of realTokens) {
-        //ERC20 balance
-        console.log(realToken.address[state.network]);
-        console.log(state.network);
-        const realContract = new web3.eth.Contract(
-          erc20ABI,
-          realToken.address[state.network]
-        );
-        wei = await realContract.methods.balanceOf(account).call();
+      // for (const realToken of realTokens) {
+      //   //ERC20 balance
+      //   console.log(realToken.address[state.network]);
+      //   console.log(state.network);
+      //   const realContract = new web3.eth.Contract(
+      //     erc20ABI,
+      //     realToken.address[state.network]
+      //   );
+      //   wei = await realContract.methods.balanceOf(account).call();
 
-        const amount = parseFloat(wei) / 10 ** 18;
-        totalValue = totalValue + amount * realToken.price;
-        totalAmount = totalAmount + amount;
-        properties.push({
-          name: realToken.name,
-          price: realToken.price,
-          apy: realToken.apy,
-          amount,
-          link: realToken.link
-        });
-      }
+      //   const amount = parseFloat(wei) / 10 ** 18;
+      //   totalValue = totalValue + amount * realToken.price;
+      //   totalAmount = totalAmount + amount;
+      //   properties.push({
+      //     name: realToken.name,
+      //     price: realToken.price,
+      //     apy: realToken.apy,
+      //     amount,
+      //     link: realToken.link
+      //   });
+      // }
 
       //REALT tokens with api
       //const result = await axios.get(realTokenURL);
@@ -76,13 +76,14 @@ export function useRealEstate() {
       // }
 
       //get USDC rental income
-      const disperseContract = "0xd152f549545093347a162dce210e7293f1452150";
-      const disperseTX = txs.token.filter(tx => tx.from === disperseContract);
-      const totalUSDCfromDisperse = disperseTX.reduce(
-        (a, b) => a + parseFloat(b.value),
-        0
-      );
-      const totalIncome = totalUSDCfromDisperse / 10 ** 6;
+      // const disperseContract = "0xd152f549545093347a162dce210e7293f1452150";
+      // const disperseTX = txs.token.filter(tx => tx.from === disperseContract);
+      // const totalUSDCfromDisperse = disperseTX.reduce(
+      //   (a, b) => a + parseFloat(b.value),
+      //   0
+      // );
+      // const totalIncome = totalUSDCfromDisperse / 10 ** 6;
+      const totalIncome = 0;
 
       dispatch({
         type: "setRealEstate",

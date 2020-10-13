@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
 import { useStore } from "../../store/store";
+import Web3 from "web3";
 
 const tokens = require("../../config/tokens/tokens.json");
 const portfolioBalancerABI = require("../config/abi/PortfolioBalancer.json");
 
 //Replace with deployed address from local blockchain
-const portfolioBalancerAddress = "0x6a778E5344b35953f3f7AA8600C442fb7b29D22b";
+const portfolioBalancerAddress = "0x82fE50cA56cb4398Ca1cC95d99d7ba12F89A1bcF";
 
 const erc20ABI = require("../../config/abi/erc20.json");
+
+//for aave saving
+const {
+  aTokenABI,
+  aDAIContract,
+  DAIContract
+} = require("../../savings/config/aave/aToken.json");
 
 export function usePortfolio(web3, account) {
   const { state, dispatch } = useStore();
@@ -46,30 +54,53 @@ export function usePortfolio(web3, account) {
         // });
 
         console.log(result);
-
-        //update balances to export in util function
-        let balances = {};
-        let wei;
-        for (const token of tokens) {
-          if (token.address === "0x") {
-            //ETH balance
-            wei = await web3.eth.getBalance(account);
-          } else {
-            //ERC20 balance
-            let contract = new web3.eth.Contract(
-              erc20ABI,
-              token.address[state.network]
-            );
-            wei = await contract.methods.balanceOf(account).call();
-          }
-
-          balances[token.symbol] = parseFloat(wei) / 10 ** token.decimals;
-        }
-        console.log("update balance after tx");
-        dispatch({ type: "setBalances", balances });
       } catch (err) {
         console.log("Error", err);
       }
+      //update balances to export in util function
+      let balances = {};
+      let wei;
+      for (const token of tokens) {
+        if (token.address === "0x") {
+          //ETH balance
+          wei = await web3.eth.getBalance(account);
+        } else {
+          //ERC20 balance
+          let contract = new web3.eth.Contract(
+            erc20ABI,
+            token.address[state.network]
+          );
+          wei = await contract.methods.balanceOf(account).call();
+        }
+
+        balances[token.symbol] = parseFloat(wei) / 10 ** token.decimals;
+      }
+      console.log("update balance after tx");
+      dispatch({ type: "setBalances", balances });
+
+      //update saving to export in function
+      //aave aDAI
+      let balance;
+      let ether;
+      console.log("deposits", state.savingAssets);
+      let deposits = state.savingAssets.deposits;
+      let debts = state.savingAssets.debts;
+      wei = 0;
+      const aDai = new web3.eth.Contract(
+        aTokenABI,
+        aDAIContract[state.network]
+      );
+
+      //aDAI balance
+      wei = await aDai.methods.balanceOf(account).call();
+      ether = Web3.utils.fromWei(wei, "ether");
+      balance = parseFloat(ether);
+      deposits.totals["DAI"] = deposits.totals["DAI"] + balance;
+      deposits.savings[0].balance = balance;
+
+      //set sassets in global storage
+      console.log("update saving after tx");
+      dispatch({ type: "setSavingAssets", savingAssets: { deposits, debts } });
     }
 
     if (state.web3 && state.account && sendTx) {
