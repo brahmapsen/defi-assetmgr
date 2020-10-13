@@ -27,7 +27,7 @@ const { cDAIContract } = require("../config/compound/cToken.json");
 
 export function useSavings() {
   const { state, dispatch } = useStore();
-  const { web3, network, maker } = state;
+  const { web3, network, maker, account } = state;
 
   //set deposits balances for all tokens to 0
   let initDebts = tokens.reduce((a, b) => ((a[b.symbol] = 0), a), {});
@@ -45,167 +45,150 @@ export function useSavings() {
       let apy;
       let wei;
       let ether;
+      let result;
 
-      if (maker.vaults.length > 0) {
-        //deposits of maker vaults
-        for (const vault of maker.vaults) {
-          deposits.totals[
-            vault.collateralAmount.symbol
-          ] = vault.collateralAmount.toNumber();
-        }
+      // //get savings in diffferent protocols
+      // //get savings inCompund
 
-        //debts of maker vaults
-        for (const vault of maker.vaults) {
-          debts.totals[vault.debtValue.symbol] = vault.debtValue.toNumber();
-        }
+      // result = await axios.get(COMPOUND_URL + account);
 
-        //get savings in diffferent protocols
-        if (maker.proxy) {
-          //get savings inCompund
+      // if (result.data.accounts.length > 0) {
+      //   for (const token of result.data.accounts[0].tokens) {
+      //     //we only check CDAI at the moment
+      //     if (token.address == cDAIContract[network]) {
+      //       //balance
+      //       balance = parseFloat(token.supply_balance_underlying.value);
+      //       totalInterest = parseFloat(
+      //         token.lifetime_supply_interest_accrued.value
+      //       );
 
-          const result = await axios.get(COMPOUND_URL + maker.proxy);
+      //       deposits.totals[token.symbol.substring(1)] = balance;
+      //     }
+      //   }
+      // }
 
-          if (result.data.accounts.length > 0) {
-            for (const token of result.data.accounts[0].tokens) {
-              //we only check CDAI at the moment
-              if (token.address == cDAIContract[network]) {
-                //balance
-                balance = parseFloat(token.supply_balance_underlying.value);
-                totalInterest = parseFloat(
-                  token.lifetime_supply_interest_accrued.value
-                );
+      // //APY for compound
+      // const ctoken = new web3.eth.Contract(erc20ABI, cDAIContract[network]);
+      // const supplyRatePerBlock = await ctoken.methods
+      //   .supplyRatePerBlock()
+      //   .call();
+      // const ethMantissa = 1e18;
+      // const blocksPerDay = 4 * 60 * 24;
+      // const daysPerYear = 365;
 
-                deposits.totals[token.symbol.substring(1)] = balance;
-              }
-            }
-          }
+      // apy =
+      //   (Math.pow(
+      //     (supplyRatePerBlock / ethMantissa) * blocksPerDay + 1,
+      //     daysPerYear - 1
+      //   ) -
+      //     1) *
+      //   100;
 
-          //APY for compound
-          const ctoken = new web3.eth.Contract(erc20ABI, cDAIContract[network]);
-          const supplyRatePerBlock = await ctoken.methods
-            .supplyRatePerBlock()
-            .call();
-          const ethMantissa = 1e18;
-          const blocksPerDay = 4 * 60 * 24;
-          const daysPerYear = 365;
+      // //saving item
+      // saving = {
+      //   token: "DAI",
+      //   platform: "Compound",
+      //   link: "https://compound.finance/",
+      //   balance,
+      //   apy,
+      //   totalInterest
+      // };
+      // savings.push(saving);
 
-          apy =
-            (Math.pow(
-              (supplyRatePerBlock / ethMantissa) * blocksPerDay + 1,
-              daysPerYear - 1
-            ) -
-              1) *
-            100;
+      //aave aDAI
+      wei = 0;
+      const aDai = new web3.eth.Contract(aTokenABI, aDAIContract[network]);
 
-          //saving item
-          saving = {
-            token: "DAI",
-            platform: "Compound",
-            link: "https://compound.finance/",
-            balance,
-            apy,
-            totalInterest
-          };
-          savings.push(saving);
+      //aDAI balance
+      wei = await aDai.methods.balanceOf(account).call();
+      ether = Web3.utils.fromWei(wei, "ether");
+      balance = parseFloat(ether);
+      deposits.totals["DAI"] = deposits.totals["DAI"] + balance;
 
-          //aave aDAI
-          wei = 0;
-          const aDai = new web3.eth.Contract(aTokenABI, aDAIContract[network]);
+      //initial balance
+      wei = await aDai.methods.principalBalanceOf(account).call();
+      ether = Web3.utils.fromWei(wei, "ether");
+      totalInterest = balance - parseFloat(ether);
 
-          //aDAI balance
-          wei = await aDai.methods.balanceOf(maker.proxy).call();
-          ether = Web3.utils.fromWei(wei, "ether");
-          balance = parseFloat(ether);
-          deposits.totals["DAI"] = deposits.totals["DAI"] + balance;
+      //APY
+      const lpAddressProviderContract = new web3.eth.Contract(
+        LendingPoolAddressesProviderABI,
+        LendingPoolAddressesProviderContract[network]
+      );
 
-          //initial balance
-          wei = await aDai.methods.principalBalanceOf(maker.proxy).call();
-          ether = Web3.utils.fromWei(wei, "ether");
-          totalInterest = balance - parseFloat(ether);
+      // Get the latest LendingPool contract address
+      const lpAddress = await lpAddressProviderContract.methods
+        .getLendingPool()
+        .call();
 
-          //APY
-          const lpAddressProviderContract = new web3.eth.Contract(
-            LendingPoolAddressesProviderABI,
-            LendingPoolAddressesProviderContract[network]
-          );
+      //lending pool contract
+      const lendingPoolContract = new web3.eth.Contract(
+        LendingPoolABI,
+        lpAddress
+      );
 
-          // Get the latest LendingPool contract address
-          const lpAddress = await lpAddressProviderContract.methods
-            .getLendingPool()
-            .call();
+      const aaveResult = await lendingPoolContract.methods
+        .getReserveData(DAIContract[network])
+        .call();
 
-          //lending pool contract
-          const lendingPoolContract = new web3.eth.Contract(
-            LendingPoolABI,
-            lpAddress
-          );
+      const aaveAPY = parseFloat(aaveResult.liquidityRate) / 1e25;
 
-          const aaveResult = await lendingPoolContract.methods
-            .getReserveData(DAIContract[network])
-            .call();
+      //saving item
+      saving = {
+        token: "DAI",
+        platform: "Aave",
+        link: "https://aave.com/",
+        balance,
+        apy: aaveAPY,
+        totalInterest
+      };
+      savings.push(saving);
 
-          const aaveAPY = parseFloat(aaveResult.liquidityRate) / 1e25;
+      // //dydx protocol
 
-          //saving item
-          saving = {
-            token: "DAI",
-            platform: "Aave",
-            link: "https://aave.com/",
-            balance,
-            apy: aaveAPY,
-            totalInterest
-          };
-          savings.push(saving);
-        }
+      // balance = 0;
+      // totalInterest = 0;
 
-        //dydx protocol
+      // const TOKENTX_URL =
+      //   "https://api.etherscan.io/api?module=account&action=tokentx&address=";
+      // result = await axios.get(TOKENTX_URL + account);
+      // const tokenTXs = result.data.result;
+      // const soloTX = tokenTXs.filter(tx => tx.to === dydxSoloContract[network]);
 
-        balance = 0;
-        totalInterest = 0;
+      // //some DAI provided to dydx
+      // if (soloTX.length > 0) {
+      //   //get total DAI put into dydx
+      //   const totalWeiToDyDX = soloTX.reduce(
+      //     (a, b) => a + parseFloat(b.value),
+      //     0
+      //   );
+      //   //get current DAI balance
+      //   const DYDX_ACCOUNT_URL = "https://api.dydx.exchange/v1/accounts/";
+      //   const dydxAccountResult = await axios.get(
+      //     DYDX_ACCOUNT_URL + maker.proxy
+      //   );
+      //   const totalBalanceDyDX = parseFloat(
+      //     dydxAccountResult.data.accounts[0].balances[3].wei
+      //   );
+      //   balance = totalBalanceDyDX / 1e18;
+      //   totalInterest = balance - totalWeiToDyDX / 1e18;
+      //   deposits.totals["DAI"] = deposits.totals["DAI"] + balance;
+      // }
 
-        const TOKENTX_URL =
-          "https://api.etherscan.io/api?module=account&action=tokentx&address=";
-        const result = await axios.get(TOKENTX_URL + maker.proxy);
-        const tokenTXs = result.data.result;
-        const soloTX = tokenTXs.filter(
-          tx => tx.to === dydxSoloContract[network]
-        );
+      // //get APY
+      // const DYDX_MARKET_URL = "https://api.dydx.exchange/v1/markets/3";
+      // const dydxMarketResult = await axios.get(DYDX_MARKET_URL);
+      // const dydxAPY = parseFloat(dydxMarketResult.data.market.totalSupplyAPY);
 
-        //some DAI provided to dydx
-        if (soloTX.length > 0) {
-          //get total DAI put into dydx
-          const totalWeiToDyDX = soloTX.reduce(
-            (a, b) => a + parseFloat(b.value),
-            0
-          );
-          //get current DAI balance
-          const DYDX_ACCOUNT_URL = "https://api.dydx.exchange/v1/accounts/";
-          const dydxAccountResult = await axios.get(
-            DYDX_ACCOUNT_URL + maker.proxy
-          );
-          const totalBalanceDyDX = parseFloat(
-            dydxAccountResult.data.accounts[0].balances[3].wei
-          );
-          balance = totalBalanceDyDX / 1e18;
-          totalInterest = balance - totalWeiToDyDX / 1e18;
-          deposits.totals["DAI"] = deposits.totals["DAI"] + balance;
-        }
-
-        //get APY
-        const DYDX_MARKET_URL = "https://api.dydx.exchange/v1/markets/3";
-        const dydxMarketResult = await axios.get(DYDX_MARKET_URL);
-        const dydxAPY = parseFloat(dydxMarketResult.data.market.totalSupplyAPY);
-
-        //add to savings
-        savings.push({
-          token: "DAI",
-          platform: "dYdX",
-          link: "https://dydx.exchange/",
-          balance,
-          apy: dydxAPY * 100,
-          totalInterest
-        });
-      }
+      // //add to savings
+      // savings.push({
+      //   token: "DAI",
+      //   platform: "dYdX",
+      //   link: "https://dydx.exchange/",
+      //   balance,
+      //   apy: dydxAPY * 100,
+      //   totalInterest
+      // });
 
       deposits.savings = savings;
 
@@ -213,8 +196,8 @@ export function useSavings() {
       dispatch({ type: "setSavingAssets", savingAssets: { deposits, debts } });
     }
 
-    if (maker) {
+    if (maker && account) {
       getAssets();
     }
-  }, [maker]);
+  }, [maker, account]);
 }

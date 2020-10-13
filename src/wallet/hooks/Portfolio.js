@@ -5,7 +5,7 @@ const tokens = require("../../config/tokens/tokens.json");
 const portfolioBalancerABI = require("../config/abi/PortfolioBalancer.json");
 
 //Replace with deployed address from local blockchain
-const portfolioBalancerAddress = "0x19a434CA32F9e17CB09E73185760EB2c6b972B67";
+const portfolioBalancerAddress = "0x6a778E5344b35953f3f7AA8600C442fb7b29D22b";
 
 const erc20ABI = require("../../config/abi/erc20.json");
 
