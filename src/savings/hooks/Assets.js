@@ -145,7 +145,7 @@ export function useSavings() {
 
       //Hardcode for demo to save processing time
       saving = {
-        token: "DAI",
+        token: "aDAI",
         platform: "Aave",
         link: "https://aave.com/",
         balance: 0,

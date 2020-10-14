@@ -6,7 +6,7 @@ const tokens = require("../../config/tokens/tokens.json");
 const portfolioBalancerABI = require("../config/abi/PortfolioBalancer.json");
 
 //Replace with deployed address from local blockchain
-const portfolioBalancerAddress = "0xE2D69550487DF2E390C3cE99738793e2345909b0";
+const portfolioBalancerAddress = "0x475c5f2d0683c6870327A56d5A973f37F819e94E";
 
 const erc20ABI = require("../../config/abi/erc20.json");
 
@@ -80,23 +80,11 @@ export function usePortfolio(web3, account) {
 
       //update saving to export in function
       //aave aDAI
-      let balance;
-      let ether;
-      console.log("deposits", state.savingAssets);
       let deposits = state.savingAssets.deposits;
       let debts = state.savingAssets.debts;
-      wei = 0;
-      const aDai = new web3.eth.Contract(
-        aTokenABI,
-        aDAIContract[state.network]
-      );
 
-      //aDAI balance
-      wei = await aDai.methods.balanceOf(account).call();
-      ether = Web3.utils.fromWei(wei, "ether");
-      balance = parseFloat(ether);
-      deposits.totals["DAI"] = deposits.totals["DAI"] + balance;
-      deposits.savings[0].balance = balance;
+      deposits.totals["DAI"] = deposits.totals["DAI"] + balances["aDAI"];
+      deposits.savings[0].balance = balances["aDAI"];
 
       //set sassets in global storage
       console.log("update saving after tx");
