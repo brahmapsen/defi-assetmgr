@@ -95,53 +95,64 @@ export function useSavings() {
       // };
       // savings.push(saving);
 
-      //aave aDAI
-      wei = 0;
-      const aDai = new web3.eth.Contract(aTokenABI, aDAIContract[network]);
+      // //aave aDAI
+      // wei = 0;
+      // const aDai = new web3.eth.Contract(aTokenABI, aDAIContract[network]);
 
-      //aDAI balance
-      wei = await aDai.methods.balanceOf(account).call();
-      ether = Web3.utils.fromWei(wei, "ether");
-      balance = parseFloat(ether);
-      deposits.totals["DAI"] = deposits.totals["DAI"] + balance;
+      // //aDAI balance
+      // wei = await aDai.methods.balanceOf(account).call();
+      // ether = Web3.utils.fromWei(wei, "ether");
+      // balance = parseFloat(ether);
+      // deposits.totals["DAI"] = deposits.totals["DAI"] + balance;
 
-      //initial balance
-      wei = await aDai.methods.principalBalanceOf(account).call();
-      ether = Web3.utils.fromWei(wei, "ether");
-      totalInterest = balance - parseFloat(ether);
+      // //initial balance
+      // wei = await aDai.methods.principalBalanceOf(account).call();
+      // ether = Web3.utils.fromWei(wei, "ether");
+      // totalInterest = balance - parseFloat(ether);
 
-      //APY
-      const lpAddressProviderContract = new web3.eth.Contract(
-        LendingPoolAddressesProviderABI,
-        LendingPoolAddressesProviderContract[network]
-      );
+      // //APY
+      // const lpAddressProviderContract = new web3.eth.Contract(
+      //   LendingPoolAddressesProviderABI,
+      //   LendingPoolAddressesProviderContract[network]
+      // );
 
-      // Get the latest LendingPool contract address
-      const lpAddress = await lpAddressProviderContract.methods
-        .getLendingPool()
-        .call();
+      // // Get the latest LendingPool contract address
+      // const lpAddress = await lpAddressProviderContract.methods
+      //   .getLendingPool()
+      //   .call();
 
-      //lending pool contract
-      const lendingPoolContract = new web3.eth.Contract(
-        LendingPoolABI,
-        lpAddress
-      );
+      // //lending pool contract
+      // const lendingPoolContract = new web3.eth.Contract(
+      //   LendingPoolABI,
+      //   lpAddress
+      // );
 
-      const aaveResult = await lendingPoolContract.methods
-        .getReserveData(DAIContract[network])
-        .call();
+      // const aaveResult = await lendingPoolContract.methods
+      //   .getReserveData(DAIContract[network])
+      //   .call();
 
-      const aaveAPY = parseFloat(aaveResult.liquidityRate) / 1e25;
+      // const aaveAPY = parseFloat(aaveResult.liquidityRate) / 1e25;
 
-      //saving item
+      // //saving item
+      // saving = {
+      //   token: "DAI",
+      //   platform: "Aave",
+      //   link: "https://aave.com/",
+      //   balance,
+      //   apy: aaveAPY,
+      //   totalInterest
+      // };
+
+      //Hardcode for demo to save processing time
       saving = {
         token: "DAI",
         platform: "Aave",
         link: "https://aave.com/",
-        balance,
-        apy: aaveAPY,
-        totalInterest
+        balance: 0,
+        apy: 3.47,
+        totalInterest: 0
       };
+
       savings.push(saving);
 
       // //dydx protocol

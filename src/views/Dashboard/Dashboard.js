@@ -101,9 +101,10 @@ const Dashboard = () => {
         const tokenObj = {};
         tokenObj.imgURL = "/images/tokens/" + token.symbol + ".png";
         tokenObj.symbol = token.symbol;
-        tokenObj.balance = balances[token.symbol]; //-
+        tokenObj.balance =
+          balances[token.symbol] + deposits.totals[token.symbol];
         // debts.totals[token.symbol] +
-        // deposits.totals[token.symbol] +
+
         // investments.totals[token.symbol];
         tokenObj.price = prices[token.symbol];
         tokenObj.value = tokenObj.balance * tokenObj.price;

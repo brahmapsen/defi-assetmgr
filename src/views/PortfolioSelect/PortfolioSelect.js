@@ -6,6 +6,7 @@ import Container from "@material-ui/core/Container";
 import { Pie } from "react-chartjs-2";
 import { useBalances } from "../../wallet/hooks/Balances";
 import { useSavings } from "../../savings/hooks/Assets";
+import { useStore } from "../../store/store";
 
 import {
   CssBaseline,
@@ -88,6 +89,8 @@ export default function PortfolioSelect() {
   const theme = useTheme();
   useBalances();
   useSavings();
+  const store = useStore();
+  console.log(store);
 
   const options = {
     legend: {
