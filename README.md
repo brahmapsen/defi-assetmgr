@@ -27,5 +27,8 @@ Copy private key from local chain into MetaMask.
 
 Connect MetaMask to Localhost 8545.
 
+Set environment variable to get token value using Chainlink Oracle contract for ETH,BTC,DAI
+export REACT_APP_ETH_RPC=https://kovan.infura.io/v3/........
+
 Run App on localhost
 `npm start`
