@@ -7,7 +7,7 @@ const portfolioBalancerABI = require("../config/abi/PortfolioBalancer.json");
 
 //Replace with deployed address from local blockchain
 //const portfolioBalancerAddress = "0x475c5f2d0683c6870327A56d5A973f37F819e94E";
-const portfolioBalancerAddress = "0x24b74F97732CE0144d4835476210f0d446753B35";
+const portfolioBalancerAddress = process.env.REACT_APP_PORTFOLIO_ADDRESS;
 
 const erc20ABI = require("../../config/abi/erc20.json");
 
