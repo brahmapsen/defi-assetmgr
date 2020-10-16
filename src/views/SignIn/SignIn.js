@@ -177,6 +177,18 @@ const SignIn = props => {
                       Sign in
                     </Button>
                   </div>
+                  {/*A sign in for portis (temporary)*/}
+                  <div className={classes.formButtons}>
+                    <Button
+                      color="primary"
+                      onClick={() => connectWallet("Portis")}
+                      size="large"
+                      fullWidth
+                      variant="contained"
+                    >
+                      Sign in 2
+                    </Button>
+                  </div>
                   <Typography
                     align="center"
                     className={classes.sugestion}
