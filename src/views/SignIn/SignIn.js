@@ -80,6 +80,10 @@ const useStyles = makeStyles(theme => ({
   logoImage: {
     marginLeft: theme.spacing(4)
   },
+  logo: {
+    width: 80,
+    height: 40,
+  },
   contentBody: {
     flexGrow: 1,
     display: "flex",
@@ -179,13 +183,17 @@ const SignIn = props => {
                   </div>
                   {/*A sign in for portis (temporary)*/}
                   <div className={classes.formButtons}>
+                    
+                    
+                   
                     <Button
-                      color="primary"
+                      color="{theme.palette.neutral}"
                       onClick={() => connectWallet("Portis")}
                       size="large"
                       fullWidth
                       variant="contained"
                     >
+                      <img src="/images/logos/portis.svg" alt="portis logo" className={classes.logo} />
                       Portis Sign In
                     </Button>
                   </div>
