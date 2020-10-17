@@ -22,7 +22,7 @@ const AssetAllocator = props => {
   const total = balances["ETH"] * prices["ETH"];
   const assetAllocation = props.location.state.allocation.map(x => x / 100);
   const [allocation, setAllocation] = useState({
-    DAI: assetAllocation[0],
+    aDAI: assetAllocation[0],
     PAXG: assetAllocation[1],
     WBTC: assetAllocation[2] / 2,
     ETH: assetAllocation[2] / 2
@@ -30,7 +30,7 @@ const AssetAllocator = props => {
 
   // amounts of different assets to purchase in ETH
   const amounts = {
-    DAI: balances["ETH"] * allocation["DAI"],
+    aDAI: balances["ETH"] * allocation["aDAI"],
     PAXG: balances["ETH"] * allocation["PAXG"],
     WBTC: balances["ETH"] * allocation["WBTC"]
   };
