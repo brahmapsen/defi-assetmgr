@@ -20,7 +20,7 @@ Deploy PortfolioBalancer smart contract
 
 `npx oz deploy`
 
-Once you have deployed the smart contract on your local blockchain, copy the address into /src/wallet/hooks/Portfolio.js.
+Once you have deployed the smart contract on your local blockchain, copy the address into the REACT_APP_PORTFOLIO_ADDRESS environment variable in .env (see .env.example).
 
 Import one of the funded accounts from local blochckain into MetaMask.
 Copy private key from local chain into MetaMask.
