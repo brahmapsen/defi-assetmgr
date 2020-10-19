@@ -298,15 +298,31 @@ interface IERC20 {
     );
 }
 
+interface CErc20 {
+    function mint(uint256) external returns (uint256);
+
+    function exchangeRateCurrent() external returns (uint256);
+
+    function supplyRatePerBlock() external returns (uint256);
+
+    function redeem(uint256) external returns (uint256);
+
+    function redeemUnderlying(uint256) external returns (uint256);
+}
+
 interface LendingPoolAddressesProvider {
-     function getLendingPool() external view returns (address);
-     function getLendingPoolCore() external view returns (address);
+    function getLendingPool() external view returns (address);
+
+    function getLendingPoolCore() external view returns (address);
 }
 
 interface LendingPool {
-    function deposit(address _reserve, uint256 _amount, uint16 _referralCode) external payable;
+    function deposit(
+        address _reserve,
+        uint256 _amount,
+        uint16 _referralCode
+    ) external payable;
 }
-
 
 contract PortfolioBalancer is ReentrancyGuard, Ownable {
     using SafeMath for uint256;
@@ -315,6 +331,8 @@ contract PortfolioBalancer is ReentrancyGuard, Ownable {
 
     address wethTokenAddress = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
     address daiTokenAddress = 0x6B175474E89094C44Da98b954EedeAC495271d0F;
+    address cdaiTokenAddress = 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643;
+    address adaiTokenAddress = 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d;
     address wbtcTokenAddress = 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599;
     address paxgTokenAddress = 0x45804880De22913dAFE09f4980848ECE6EcbAf78;
 
@@ -358,33 +376,49 @@ contract PortfolioBalancer is ReentrancyGuard, Ownable {
             now + 280
         );
 
-        // //noe put DAI into AAve
+        //calculate DAI amounts
+        uint256 amount = amountsDAI[1];
+        uint256 adaiAmount = amount.div(2);
+        uint256 cdaiAmount = amount.sub(adaiAmount);
+
+        // //now put DAI into AAve
         // // Retrieve LendingPool address
-        LendingPoolAddressesProvider provider = LendingPoolAddressesProvider(address(0x24a42fD28C976A61Df5D00D0599C34c4f90748c8)); // mainnet address, for other addresses: https://docs.aave.com/developers/developing-on-aave/deployed-contract-instances
+        LendingPoolAddressesProvider provider = LendingPoolAddressesProvider(
+            address(0x24a42fD28C976A61Df5D00D0599C34c4f90748c8)
+        ); // mainnet address, for other addresses: https://docs.aave.com/developers/developing-on-aave/deployed-contract-instances
         LendingPool lendingPool = LendingPool(provider.getLendingPool());
 
-        // Input variables
-        address daiAddress = address(0x6B175474E89094C44Da98b954EedeAC495271d0F); // mainnet DAI
-        uint256 amount = amountsDAI[1];
         uint16 referral = 0;
 
         // // Approve LendingPool contract to move your DAI
-        IERC20(daiAddress).approve(provider.getLendingPoolCore(), amount);
+        IERC20(daiTokenAddress).approve(
+            provider.getLendingPoolCore(),
+            adaiAmount
+        );
 
         // // Deposit DAI
-         lendingPool.deposit(daiAddress, amount, referral);
-        
-        // //transfer aDAI to sender
-        address aDAIAddress = address(0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d);
+        lendingPool.deposit(daiTokenAddress, adaiAmount, referral);
+
         //uint aDaiamount = IERC20(aDAIAddress).balanceOf(address(this));
-        IERC20(aDAIAddress).transfer(msg.sender, amount);
+        IERC20(adaiTokenAddress).transfer(msg.sender, adaiAmount);
+
+        // Put intoc ompound
+        // Approve transfer onr the ERC20 account
+        IERC20(daiTokenAddress).approve(cdaiTokenAddress, cdaiAmount);
+
+        // Mint cTokens
+        CErc20(cdaiTokenAddress).mint(cdaiAmount);
+        uint256 cTokenamount = IERC20(cdaiTokenAddress).balanceOf(
+            address(this)
+        );
+
+        //transfer cDAI to sender
+        IERC20(cdaiTokenAddress).transfer(msg.sender, cTokenamount);
 
         //buy WBTC
         path[1] = wbtcTokenAddress;
 
-        uint256[] memory amountsWBTC = uniswapV2Router
-            .swapExactETHForTokens
-            .value(_amountInETHForWBTC)(
+        uniswapV2Router.swapExactETHForTokens.value(_amountInETHForWBTC)(
             _amountOutMinWBTC,
             path,
             msg.sender,
@@ -394,9 +428,7 @@ contract PortfolioBalancer is ReentrancyGuard, Ownable {
         //buy PAXG
         path[1] = paxgTokenAddress;
 
-        uint256[] memory amountsPAXG = uniswapV2Router
-            .swapExactETHForTokens
-            .value(_amountInETHForPAXG)(
+        uniswapV2Router.swapExactETHForTokens.value(_amountInETHForPAXG)(
             _amountOutMinPAXG,
             path,
             msg.sender,

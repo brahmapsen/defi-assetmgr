@@ -51,34 +51,41 @@ const TargetAssets = props => {
     ...rest
   } = props;
   const [amounts, setAmounts] = useState({
-    DAI: total * allocation["DAI"],
+    aDAI: total * allocation["aDAI"],
+    cDAI: total * allocation["cDAI"],
     PAXG: total * allocation["PAXG"],
     WBTC: total * allocation["WBTC"],
     ETH: total * allocation["ETH"]
   });
 
+  console.log("amounts", amounts);
+
   const classes = useStyles();
 
   const assets = [
-    { symbol: "DAI", category: "Cash" },
+    { symbol: "aDAI", category: "Cash" },
+    { symbol: "cDAI", category: "Cash" },
     { symbol: "PAXG", category: "Gold" },
     { symbol: "WBTC", category: "Crypto" },
     { symbol: "ETH", category: "  Crypto" }
   ];
 
   const handleChange = prop => event => {
-    let daiAmount = amounts["DAI"];
+    let adaiAmount = amounts["aDAI"];
+    let cdaiAmount = amounts["cDAI"];
     let paxgAmount = amounts["PAXG"];
     let wbtcAmount = amounts["WBTC"];
     let ethAmount = amounts["ETH"];
+    let daiAmount = adaiAmount + cdaiAmount;
     let input;
     if (event.target.value) {
       input = parseInt(event.target.value);
       switch (prop) {
-        case "DAI":
+        case "aDAI":
           //amount exeeds total amount
           if (input > total) {
-            daiAmount = total;
+            adaiAmount = total / 2;
+            cdaiAmount = total / 2;
             paxgAmount = 0;
             wbtcAmount = 0;
             ethAmount = 0;
@@ -87,19 +94,19 @@ const TargetAssets = props => {
             total >
             input + paxgAmount + wbtcAmount + ethAmount
           ) {
-            daiAmount = input;
+            adaiAmount = input;
             paxgAmount = total - input - wbtcAmount - ethAmount;
             //we need to fill up from eth
           } else if (total > input + paxgAmount + wbtcAmount) {
-            daiAmount = input;
+            adaiAmount = input;
             ethAmount = total - paxgAmount - wbtcAmount - input;
             //fill up from btc and eth
           } else if (total > input + paxgAmount) {
-            daiAmount = input;
+            adaiAmount = input;
             ethAmount = 0;
             wbtcAmount = total - input - paxgAmount;
           } else {
-            daiAmount = input;
+            adaiAmount = input;
             ethAmount = 0;
             wbtcAmount = 0;
             paxgAmount = total - input;
@@ -108,7 +115,8 @@ const TargetAssets = props => {
         case "PAXG":
           //amount exeeds total amount
           if (input > total) {
-            daiAmount = 0;
+            adaiAmount = 0;
+            cdaiAmount = 0;
             paxgAmount = total;
             wbtcAmount = 0;
             ethAmount = 0;
@@ -157,14 +165,16 @@ const TargetAssets = props => {
     }
 
     setAmounts({
-      DAI: daiAmount,
+      aDAI: adaiAmount,
+      cDAI: cdaiAmount,
       PAXG: paxgAmount,
       WBTC: wbtcAmount,
       ETH: ethAmount
     });
 
     setAllocation({
-      DAI: daiAmount / total,
+      aDAI: adaiAmount / total,
+      cDAI: cdaiAmount / total,
       PAXG: paxgAmount / total,
       WBTC: wbtcAmount / total,
       ETH: ethAmount / total

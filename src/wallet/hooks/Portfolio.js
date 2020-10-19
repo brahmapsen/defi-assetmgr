@@ -28,7 +28,12 @@ export function usePortfolio(web3, account) {
     async function rebalance(web3, account) {
       console.log("Amounts", sendTx);
       const totalEth = web3.utils.toWei(
-        (sendTx["DAI"] + sendTx["PAXG"] + sendTx["WBTC"]).toString()
+        (
+          sendTx["aDAI"] +
+          sendTx["cDAI"] +
+          sendTx["PAXG"] +
+          sendTx["WBTC"]
+        ).toString()
       );
 
       try {
@@ -39,7 +44,7 @@ export function usePortfolio(web3, account) {
 
         const result = await portfolioContract.methods
           .rebalance(
-            web3.utils.toWei(sendTx["DAI"].toString()),
+            web3.utils.toWei((sendTx["aDAI"] + sendTx["cDAI"]).toString()),
             "0",
             web3.utils.toWei(sendTx["WBTC"].toString()),
             "0",
