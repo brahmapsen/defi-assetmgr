@@ -34,6 +34,7 @@ let minABI = [
 ];
 
 const daiTokenAddress = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
+const cDaiTokenAddress = "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643";
 const aDaiTokenAddress = "0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d";
 const wbtcTokenAddress = "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599";
 const paxgTokenAddress = "0x45804880De22913dAFE09f4980848ECE6EcbAf78";
@@ -70,6 +71,10 @@ describe("PortfolioBalancer", function() {
     let balDAIBefore = await DAI.methods.balanceOf(jan).call();
     console.log("aDAI Balance before", balDAIBefore);
 
+    let cDAI = new web3.eth.Contract(minABI, cDaiTokenAddress);
+    let balcDAIBefore = await cDAI.methods.balanceOf(jan).call();
+    console.log("cDAI Balance before", balcDAIBefore);
+
     let PAXG = new web3.eth.Contract(minABI, paxgTokenAddress);
     let balPAXGBefore = await PAXG.methods.balanceOf(jan).call();
     console.log("PAXG Balance before", balPAXGBefore);
@@ -91,6 +96,9 @@ describe("PortfolioBalancer", function() {
 
     balDAIAfter = await DAI.methods.balanceOf(jan).call();
     console.log("aDAI Balance after", balDAIAfter);
+
+    balDAIAfter = await cDAI.methods.balanceOf(jan).call();
+    console.log("cDAI Balance after", balDAIAfter);
 
     balPAXGAfter = await PAXG.methods.balanceOf(jan).call();
     console.log("PAXG Balance after", balPAXGAfter);

@@ -6,7 +6,7 @@ const tokens = require("../../config/tokens/tokens.json");
 const portfolioBalancerABI = require("../config/abi/PortfolioBalancer.json");
 
 //Replace with deployed address from local blockchain
-const portfolioBalancerAddress = "0x475c5f2d0683c6870327A56d5A973f37F819e94E";
+const portfolioBalancerAddress = "0x2cb61bd8Deb539C0C0F9C00FE701993EBC3C2C3e";
 
 const erc20ABI = require("../../config/abi/erc20.json");
 
@@ -27,7 +27,12 @@ export function usePortfolio(web3, account) {
     async function rebalance(web3, account) {
       console.log("Amounts", sendTx);
       const totalEth = web3.utils.toWei(
-        (sendTx["DAI"] + sendTx["PAXG"] + sendTx["WBTC"]).toString()
+        (
+          sendTx["aDAI"] +
+          sendTx["cDAI"] +
+          sendTx["PAXG"] +
+          sendTx["WBTC"]
+        ).toString()
       );
 
       try {
@@ -38,7 +43,7 @@ export function usePortfolio(web3, account) {
 
         const result = await portfolioContract.methods
           .rebalance(
-            web3.utils.toWei(sendTx["DAI"].toString()),
+            web3.utils.toWei((sendTx["aDAI"] + sendTx["cDAI"]).toString()),
             "0",
             web3.utils.toWei(sendTx["WBTC"].toString()),
             "0",
