@@ -74,6 +74,7 @@
         "bytecodeHash": "d240faea97d6fc6b8054ab6bed085d9b700c5845b687c1d6e29688937aea8b5d"
       },
       {
+<<<<<<< HEAD
         "address": "0xadf8b870d840478ccf52176B5e42cA17CE104297",
         "kind": "NonProxy",
         "bytecodeHash": "5da6279382976f033972368fc9bcfed43d60b8212b7ff7eeeeb74513db696204"
@@ -82,6 +83,11 @@
         "address": "0x57cf152aB0cd1044DD6D870bbea2922aDFfd417e",
         "kind": "NonProxy",
         "bytecodeHash": "5da6279382976f033972368fc9bcfed43d60b8212b7ff7eeeeb74513db696204"
+=======
+        "address": "0xF765737Ea571B1f83A05814aBb0d13684156eF98",
+        "kind": "NonProxy",
+        "bytecodeHash": "ab7c4d8e0d5a3a88f21db7c5426f4b07fef621991def54a799edddbce749cabc"
+>>>>>>> 82d8f9bed2c7521af388ee377adf0ce39e7ef41e
       }
     ]
   },
