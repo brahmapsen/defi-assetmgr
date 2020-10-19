@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useStore } from "../../store/store";
 import Web3 from "web3"; // uses latest 1.x.x version
 import Fortmatic from "fortmatic";
+import Portis from '@portis/web3';
 import { useBalances } from "./Balances";
 import { useMakerDAO } from "../../savings/hooks/MakerDAO";
 import { useTransactions } from "./transactions";
@@ -57,6 +58,26 @@ export function useInitWeb3() {
             window.web3 = web3;
             let accounts = await fm.user.login();
             account = accounts[0];
+            break;
+          case "Portis":
+            // should the network ID be on mainnet? Kovan?
+            // sets up Portis
+            // probably should add react environment vars here
+
+            let network;
+            // sets network to local ganache network at chain Id 999
+            if(process.env.REACT_APP_NETWORK === "ganache") {
+              network = {
+                nodeUrl: 'http://localhost:8545',
+                chainId: parseInt(process.env.REACT_APP_CHAINID),
+              };
+            }
+            else network = process.env.REACT_APP_NETWORK; // just a regular string (ex: "kovan")
+            // Create a portis provider 
+            const portis = new Portis(process.env.REACT_APP_PORTIS_ID, network);
+            web3 = new Web3(portis.provider);
+            const portisAccounts = await web3.eth.getAccounts().catch((err) => {console.warn("Portis error: ", err)});
+            account = portisAccounts[0];
             break;
         }
 

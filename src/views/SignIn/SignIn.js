@@ -80,6 +80,10 @@ const useStyles = makeStyles(theme => ({
   logoImage: {
     marginLeft: theme.spacing(4)
   },
+  logo: {
+    width: 80,
+    height: 40,
+  },
   contentBody: {
     flexGrow: 1,
     display: "flex",
@@ -164,7 +168,7 @@ const SignIn = props => {
                     Sign in
                   </Typography>
                   <Typography color="textSecondary" gutterBottom>
-                    Sign in with email or phone (powered by Fortmatic)
+                    Sign in with email or phone
                   </Typography>
                   <div className={classes.formButtons}>
                     <Button
@@ -174,7 +178,23 @@ const SignIn = props => {
                       fullWidth
                       variant="contained"
                     >
-                      Sign in
+                      Fortmatic Sign In
+                    </Button>
+                  </div>
+                  {/*A sign in for portis (temporary)*/}
+                  <div className={classes.formButtons}>
+                    
+                    
+                   
+                    <Button
+                      color="{theme.palette.neutral}"
+                      onClick={() => connectWallet("Portis")}
+                      size="large"
+                      fullWidth
+                      variant="contained"
+                    >
+                      <img src="/images/logos/portis.svg" alt="portis logo" className={classes.logo} />
+                      Portis Sign In
                     </Button>
                   </div>
                   <Typography
