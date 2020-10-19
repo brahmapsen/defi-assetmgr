@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundImage: "url(/images/auth.jpg)",
+    backgroundImage: "url(/images/asset.jpg)",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center"
@@ -139,7 +139,7 @@ const SignIn = props => {
     return (
       <div className={classes.root}>
         <Grid className={classes.grid} container>
-          <Grid className={classes.quoteContainer} item lg={5}>
+          <Grid className={classes.quoteContainer} item lg={7}>
             <div className={classes.quote}>
               <div className={classes.quoteInner}>
                 <Typography className={classes.quoteText} variant="h1">
@@ -147,7 +147,7 @@ const SignIn = props => {
                 </Typography>
                 <div className={classes.person}>
                   <Typography className={classes.name} variant="body1">
-                    Defi Dashboard
+                    DeCentralized Finance
                   </Typography>
                   {/* <Typography className={classes.bio} variant="body2">
                     Defi Portal
@@ -156,7 +156,7 @@ const SignIn = props => {
               </div>
             </div>
           </Grid>
-          <Grid className={classes.content} item lg={7} xs={12}>
+          <Grid className={classes.content} item lg={5} xs={12}>
             <div className={classes.content}>
               <div className={classes.contentBody}>
                 <div className={classes.form}>
@@ -183,9 +183,6 @@ const SignIn = props => {
                   </div>
                   {/*A sign in for portis (temporary)*/}
                   <div className={classes.formButtons}>
-                    
-                    
-                   
                     <Button
                       color="{theme.palette.neutral}"
                       onClick={() => connectWallet("Portis")}

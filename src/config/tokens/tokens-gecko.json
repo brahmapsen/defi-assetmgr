@@ -1,5 +1,16 @@
 [
   {
+    "symbol": "cDAI",
+    "name": "Compound Dai",
+    "decimals": 8,
+    "address": {
+      "mainnet": "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643",
+      "kovan": "0x5d3a536e4d6dbd6114cc1ead35777bab948e3643"
+    },
+    "coingecko": "cdai",
+    "class": "cash"
+  },
+  {
     "symbol": "aDAI",
     "name": "Aave Interest bearing DAI ",
     "decimals": 18,
