@@ -49,7 +49,7 @@ const TargetAllocation = props => {
   const assets = [
     {
       title: "Cash",
-      value: allocation["aDAI"] + allocation["cDAI"],
+      value: allocation["aUSDC"] + allocation["cUSDC"],
       icon: <AttachMoneyIcon />,
       color: theme.palette.success.main
     },

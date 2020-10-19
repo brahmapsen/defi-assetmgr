@@ -145,11 +145,22 @@ export function useSavings() {
 
       //Hardcode for demo to save processing time
       saving = {
-        token: "aDAI",
+        token: "aUSDC",
         platform: "Aave",
         link: "https://aave.com/",
         balance: 0,
-        apy: 3.47,
+        apy: 2.74,
+        totalInterest: 0
+      };
+
+      savings.push(saving);
+
+      saving = {
+        token: "cUSDC",
+        platform: "Compound",
+        link: "https://compound.finance/",
+        balance: 0,
+        apy: 0.66,
         totalInterest: 0
       };
 

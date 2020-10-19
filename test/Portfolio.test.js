@@ -34,8 +34,12 @@ let minABI = [
 ];
 
 const daiTokenAddress = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
-const cDaiTokenAddress = "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643";
-const aDaiTokenAddress = "0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d";
+// const cDaiTokenAddress = "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643";
+// const aDaiTokenAddress = "0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d";
+//USDC coin
+const usdcTokenAddress = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
+const cDaiTokenAddress = "0x39AA39c021dfbaE8faC545936693aC917d5E7563";
+const aDaiTokenAddress = "0x9bA00D6856a4eDF4665BcA2C2309936572473B7E";
 const wbtcTokenAddress = "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599";
 const paxgTokenAddress = "0x45804880De22913dAFE09f4980848ECE6EcbAf78";
 

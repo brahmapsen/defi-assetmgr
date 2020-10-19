@@ -14,8 +14,8 @@ const erc20ABI = require("../../config/abi/erc20.json");
 //for aave saving
 const {
   aTokenABI,
-  aDAIContract,
-  DAIContract
+  aUSDCContract,
+  USDCContract
 } = require("../../savings/config/aave/aToken.json");
 
 export function usePortfolio(web3, account) {
@@ -29,8 +29,8 @@ export function usePortfolio(web3, account) {
       console.log("Amounts", sendTx);
       const totalEth = web3.utils.toWei(
         (
-          sendTx["aDAI"] +
-          sendTx["cDAI"] +
+          sendTx["aUSDC"] +
+          sendTx["cUSDC"] +
           sendTx["PAXG"] +
           sendTx["WBTC"]
         ).toString()
@@ -44,7 +44,7 @@ export function usePortfolio(web3, account) {
 
         const result = await portfolioContract.methods
           .rebalance(
-            web3.utils.toWei((sendTx["aDAI"] + sendTx["cDAI"]).toString()),
+            web3.utils.toWei((sendTx["aUSDC"] + sendTx["cUSDC"]).toString()),
             "0",
             web3.utils.toWei(sendTx["WBTC"].toString()),
             "0",
@@ -85,12 +85,13 @@ export function usePortfolio(web3, account) {
       dispatch({ type: "setBalances", balances });
 
       //update saving to export in function
-      //aave aDAI
+      //aave aUSDC
       let deposits = state.savingAssets.deposits;
       let debts = state.savingAssets.debts;
 
-      deposits.totals["DAI"] = deposits.totals["DAI"] + balances["aDAI"];
-      deposits.savings[0].balance = balances["aDAI"];
+      deposits.totals["USDC"] = deposits.totals["USDC"] + balances["aUSDC"];
+      deposits.savings[0].balance = balances["aUSDC"];
+      deposits.savings[1].balance = balances["cUSDC"];
 
       //set sassets in global storage
       console.log("update saving after tx");

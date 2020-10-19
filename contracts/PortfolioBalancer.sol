@@ -330,9 +330,13 @@ contract PortfolioBalancer is ReentrancyGuard, Ownable {
     bool private stopped = false;
 
     address wethTokenAddress = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
-    address daiTokenAddress = 0x6B175474E89094C44Da98b954EedeAC495271d0F;
-    address cdaiTokenAddress = 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643;
-    address adaiTokenAddress = 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d;
+    // address daiTokenAddress = 0x6B175474E89094C44Da98b954EedeAC495271d0F;
+    // address cdaiTokenAddress = 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643;
+    // address adaiTokenAddress = 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d;
+    //USDC coin
+    address daiTokenAddress = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
+    address cdaiTokenAddress = 0x39AA39c021dfbaE8faC545936693aC917d5E7563;
+    address adaiTokenAddress = 0x9bA00D6856a4eDF4665BcA2C2309936572473B7E;
     address wbtcTokenAddress = 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599;
     address paxgTokenAddress = 0x45804880De22913dAFE09f4980848ECE6EcbAf78;
 
@@ -377,7 +381,8 @@ contract PortfolioBalancer is ReentrancyGuard, Ownable {
         );
 
         //calculate DAI amounts
-        uint256 amount = amountsDAI[1];
+        //uint256 amount = amountsDAI[0];
+        uint256 amount = IERC20(daiTokenAddress).balanceOf(address(this));
         uint256 adaiAmount = amount.div(2);
         uint256 cdaiAmount = amount.sub(adaiAmount);
 
