@@ -17,7 +17,11 @@ const AssetAllocator = props => {
   const { className, ...rest } = props;
   const store = useStore();
   const { setSendTx, setAmounts, rebalanced } = usePortfolio();
-  const { prices, balances } = store.state;
+  const { prices } = store.state;
+
+  //harcode balance to 100 for demo
+  let balances = {};
+  balances["ETH"] = 100;
 
   const total = balances["ETH"] * prices["ETH"];
   const assetAllocation = props.location.state.allocation.map(x => x / 100);

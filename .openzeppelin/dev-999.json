@@ -1,0 +1,29 @@
+{
+  "contracts": {},
+  "solidityLibs": {},
+  "proxies": {
+    "defi-portal/PortfolioBalancer": [
+      {
+        "address": "0x6a7Ff044A001Ee9f69Af55A3f2E68055fdaD9FDB",
+        "kind": "NonProxy",
+        "bytecodeHash": "5da6279382976f033972368fc9bcfed43d60b8212b7ff7eeeeb74513db696204"
+      },
+      {
+        "address": "0x68E171847F0A0FC061341796da4302FCc17F4f84",
+        "kind": "NonProxy",
+        "bytecodeHash": "5da6279382976f033972368fc9bcfed43d60b8212b7ff7eeeeb74513db696204"
+      },
+      {
+        "address": "0x92F9DE37805a6CdA31b046799B025025f65Da2Fa",
+        "kind": "NonProxy",
+        "bytecodeHash": "5da6279382976f033972368fc9bcfed43d60b8212b7ff7eeeeb74513db696204"
+      },
+      {
+        "address": "0x5096D0c50313FF669DD3cAA975C7a545563B283B",
+        "kind": "NonProxy",
+        "bytecodeHash": "5da6279382976f033972368fc9bcfed43d60b8212b7ff7eeeeb74513db696204"
+      }
+    ]
+  },
+  "manifestVersion": "2.2"
+}

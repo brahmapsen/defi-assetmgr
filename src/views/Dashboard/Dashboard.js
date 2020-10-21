@@ -5,6 +5,7 @@ import { Grid } from "@material-ui/core";
 import { useStore } from "../../store/store";
 import { Redirect } from "react-router-dom";
 import { useSavings } from "../../savings/hooks/Assets";
+import { useBalances } from "../../wallet/hooks/Balances";
 import { useRealEstate } from "../../realEstate/hooks/RealEstate";
 import { useInvestments } from "../../investments/hooks/investments";
 import LoadingAssetsModal from "../../wallet/components/LoadingAssetsModal";
@@ -80,6 +81,7 @@ const Dashboard = () => {
   const classes = useStyles();
   const store = useStore();
   useRealEstate();
+  useBalances();
   useSavings();
   useInvestments();
   const {

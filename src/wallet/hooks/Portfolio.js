@@ -86,16 +86,16 @@ export function usePortfolio(web3, account) {
 
       //update saving to export in function
       //aave aUSDC
-      let deposits = state.savingAssets.deposits;
-      let debts = state.savingAssets.debts;
+      // let deposits = state.savingAssets.deposits;
+      // let debts = state.savingAssets.debts;
 
-      deposits.totals["USDC"] = deposits.totals["USDC"] + balances["aUSDC"];
-      deposits.savings[0].balance = balances["aUSDC"];
-      deposits.savings[1].balance = balances["cUSDC"];
+      // deposits.totals["USDC"] = deposits.totals["USDC"] + balances["aUSDC"];
+      // deposits.savings[0].balance = balances["aUSDC"];
+      // deposits.savings[1].balance = balances["cUSDC"];
 
-      //set sassets in global storage
-      console.log("update saving after tx");
-      dispatch({ type: "setSavingAssets", savingAssets: { deposits, debts } });
+      // //set sassets in global storage
+      // console.log("update saving after tx");
+      // dispatch({ type: "setSavingAssets", savingAssets: { deposits, debts } });
     }
 
     if (state.web3 && state.account && sendTx) {

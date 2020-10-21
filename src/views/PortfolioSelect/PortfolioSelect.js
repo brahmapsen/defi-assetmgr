@@ -4,7 +4,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Pie } from "react-chartjs-2";
-import { useBalances } from "../../wallet/hooks/Balances";
 import { useSavings } from "../../savings/hooks/Assets";
 import { useStore } from "../../store/store";
 
@@ -87,7 +86,6 @@ const tiers = [
 export default function PortfolioSelect() {
   const classes = useStyles();
   const theme = useTheme();
-  useBalances();
   useSavings();
   const store = useStore();
   console.log(store);

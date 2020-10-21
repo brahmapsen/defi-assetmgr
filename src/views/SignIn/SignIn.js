@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/styles";
 import { useInitWeb3 } from "../../wallet/hooks/initWeb3";
 import { usePrices } from "../../wallet/hooks/Prices";
+import { useBalances } from "../../wallet/hooks/Balances";
 import { useStore } from "../../store/store";
 import { Grid, Button, Typography } from "@material-ui/core";
 import { MetaMaskButton } from "rimble-ui";
@@ -82,7 +83,7 @@ const useStyles = makeStyles(theme => ({
   },
   logo: {
     width: 80,
-    height: 40,
+    height: 40
   },
   contentBody: {
     flexGrow: 1,
@@ -124,6 +125,7 @@ const useStyles = makeStyles(theme => ({
 
 const SignIn = props => {
   const store = useStore();
+  const { web3, account } = store.state;
   const classes = useStyles();
   const { setWallet } = useInitWeb3();
   usePrices();
@@ -132,9 +134,14 @@ const SignIn = props => {
     setWallet(wallet);
   };
 
-  if (store.state.web3) {
-    return <Redirect to="/select-portfolio" />;
-    //return <Redirect to="/dashboard" />;
+  if (web3 && account) {
+    //little hack for demo to decide if showing dashboard
+    //enter address with just 100 ETH
+    if (account === "0x82CaaFcFfFE6355be850b42b7059C69d8ece79BC") {
+      return <Redirect to="/dashboard" />;
+    } else {
+      return <Redirect to="/select-portfolio" />;
+    }
   } else {
     return (
       <div className={classes.root}>
@@ -190,7 +197,11 @@ const SignIn = props => {
                       fullWidth
                       variant="contained"
                     >
-                      <img src="/images/logos/portis.svg" alt="portis logo" className={classes.logo} />
+                      <img
+                        src="/images/logos/portis.svg"
+                        alt="portis logo"
+                        className={classes.logo}
+                      />
                       Portis Sign In
                     </Button>
                   </div>

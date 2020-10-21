@@ -27,7 +27,7 @@ const { cDAIContract } = require("../config/compound/cToken.json");
 
 export function useSavings() {
   const { state, dispatch } = useStore();
-  const { web3, network, maker, account } = state;
+  const { web3, network, maker, account, balances } = state;
 
   //set deposits balances for all tokens to 0
   let initDebts = tokens.reduce((a, b) => ((a[b.symbol] = 0), a), {});
@@ -148,7 +148,7 @@ export function useSavings() {
         token: "aUSDC",
         platform: "Aave",
         link: "https://aave.com/",
-        balance: 0,
+        balance: balances["aUSDC"],
         apy: 2.74,
         totalInterest: 0
       };
@@ -159,12 +159,14 @@ export function useSavings() {
         token: "cUSDC",
         platform: "Compound",
         link: "https://compound.finance/",
-        balance: 0,
+        balance: balances["cUSDC"],
         apy: 0.66,
         totalInterest: 0
       };
 
       savings.push(saving);
+
+      deposits.totals["USDC"] = balances["cUSDC"] + balances["aUSDC"];
 
       // //dydx protocol
 
@@ -218,8 +220,8 @@ export function useSavings() {
       dispatch({ type: "setSavingAssets", savingAssets: { deposits, debts } });
     }
 
-    if (maker && account) {
+    if (maker && account && balances) {
       getAssets();
     }
-  }, [maker, account]);
+  }, [maker, account, balances]);
 }
