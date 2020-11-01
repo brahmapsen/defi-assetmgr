@@ -1,6 +1,6 @@
 # Defi Asset Manager
 
-Manage portfolios of different asset classes on defi
+Manage portfolios of different asset classes on defi. Currently model portfolios of cash (stable coins), gold and crypto are vailable.
 
 ## Install
 
