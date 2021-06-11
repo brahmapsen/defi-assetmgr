@@ -1,6 +1,6 @@
 # Defi Asset Manager
-
-Manage portfolios of different asset classes on defi. Currently model portfolios of cash (stable coins), gold and crypto are vailable.
+Manage portfolios with different asset classes on defi: The goal is to bring concepts like portfolio management/rebalancing from the traditional investment world into Defi. The user can select between model portfolios with different asset allocations and with one click purchase it. Basically, it should be easier for not knowledgable crypto users to invest in a balanced portfolio of different traditional asset classes like Gold and Real Estate and Crypto assets, everything available on defi.
+React frontend that is pulling information from different defi protocols and a smart contract that purchases several assets (tokens) on uniswap.
 
 ## Install
 
